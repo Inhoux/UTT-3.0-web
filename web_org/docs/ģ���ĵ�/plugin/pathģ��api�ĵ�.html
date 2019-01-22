@@ -1,0 +1,164 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<style>
+*{margin:0;padding:0;}
+body {
+	font:13.34px helvetica,arial,freesans,clean,sans-serif;
+	color:black;
+	line-height:1.4em;
+	background-color: #F8F8F8;
+	padding: 0.7em;
+}
+p {
+	margin:1em 0;
+	line-height:1.5em;
+}
+table {
+	font-size:inherit;
+	font:100%;
+	margin:1em;
+}
+table th{border-bottom:1px solid #bbb;padding:.2em 1em;}
+table td{border-bottom:1px solid #ddd;padding:.2em 1em;}
+input[type=text],input[type=password],input[type=image],textarea{font:99% helvetica,arial,freesans,sans-serif;}
+select,option{padding:0 .25em;}
+optgroup{margin-top:.5em;}
+pre,code{font:12px Monaco,"Courier New","DejaVu Sans Mono","Bitstream Vera Sans Mono",monospace;}
+pre {
+	margin:1em 0;
+	font-size:12px;
+	background-color:#eee;
+	border:1px solid #ddd;
+	padding:5px;
+	line-height:1.5em;
+	color:#444;
+	overflow:auto;
+	-webkit-box-shadow:rgba(0,0,0,0.07) 0 1px 2px inset;
+	-webkit-border-radius:3px;
+	-moz-border-radius:3px;border-radius:3px;
+}
+pre code {
+	padding:0;
+	font-size:12px;
+	background-color:#eee;
+	border:none;
+}
+code {
+	font-size:12px;
+	background-color:#f8f8ff;
+	color:#444;
+	padding:0 .2em;
+	border:1px solid #dedede;
+}
+img{border:0;max-width:100%;}
+abbr{border-bottom:none;}
+a{color:#4183c4;text-decoration:none;}
+a:hover{text-decoration:underline;}
+a code,a:link code,a:visited code{color:#4183c4;}
+h2,h3{margin:1em 0;}
+h1,h2,h3,h4,h5,h6{border:0;}
+h1{font-size:170%;border-top:4px solid #aaa;padding-top:.5em;margin-top:1.5em;}
+h1:first-child{margin-top:0;padding-top:.25em;border-top:none;}
+h2{font-size:150%;margin-top:1.5em;border-top:4px solid #e0e0e0;padding-top:.5em;}
+h3{margin-top:1em;}
+hr{border:1px solid #ddd;}
+ul{margin:1em 0 1em 2em;}
+ol{margin:1em 0 1em 2em;}
+ul li,ol li{margin-top:.5em;margin-bottom:.5em;}
+ul ul,ul ol,ol ol,ol ul{margin-top:0;margin-bottom:0;}
+blockquote{margin:1em 0;border-left:5px solid #ddd;padding-left:.6em;color:#555;}
+dt{font-weight:bold;margin-left:1em;}
+dd{margin-left:2em;margin-bottom:1em;}
+sup {
+    font-size: 0.83em;
+    vertical-align: super;
+    line-height: 0;
+}
+* {
+	-webkit-print-color-adjust: exact;
+}
+@media screen and (min-width: 914px) {
+    body {
+        width: 854px;
+        margin:0 auto;
+    }
+}
+@media print {
+	table, pre {
+		page-break-inside: avoid;
+	}
+	pre {
+		word-wrap: break-word;
+	}
+}
+</style>
+<title>Path模块API文档</title>
+
+</head>
+<body>
+<h1>Path模块API文档</h1>
+
+<h2>简介</h2>
+
+<p>Path模块位于modules/plugin 目录中，是专门处理路径导航的模块。</p>
+
+<p>引入此模块代码如下：</p>
+
+<pre><code>// 不需要考虑路径问题
+var Path = require('Path');
+</code></pre>
+
+<h2>displayPath(pathList)</h2>
+
+<ul>
+<li>说明 ： 生成路径导航</li>
+<li>参数 ： json, 路径导航的配置数据。有以下键：
+
+<ul>
+<li>prevTitle 路径导航中最前面的文字</li>
+<li>links 路径导航中所有的链接，是一个数组，每个元素是json，有以下键
+
+<ul>
+<li>link, 链接的地址</li>
+<li>title, 链接的文字</li>
+</ul>
+</li>
+<li>currentTitle, 路径导航中最后面的文字</li>
+</ul>
+</li>
+</ul>
+
+
+<p>示例代码如下：</p>
+
+<pre><code>    // 加载路径导航模板模块
+    var Path = require('../../../plugin/Path');
+    // 路径导航配置数据
+    var pathList = {
+        "prevTitle" : '网络配置',
+        "links"     : [
+            {"link" : '#/network_config/LAN_config', "title" : '内网配置'},
+            {"link" : '#/network_config/LAN_config', "title" : '内网配置'}
+        ],
+        "currentTitle" : ''
+    };
+    Path.displayPath(pathList);
+</code></pre>
+
+<h2>changePath(str)</h2>
+
+<ul>
+<li>修改路径导航最后面的文字</li>
+<li>参数， string, 要显示的文字</li>
+</ul>
+
+
+<p>示例代码如下：</p>
+
+<pre><code>    Path.changePath('lan口配置');
+</code></pre>
+</body>
+</html>

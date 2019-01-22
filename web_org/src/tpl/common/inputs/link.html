@@ -1,0 +1,7 @@
+<tr {{if !display}}class="u-hide"{{/if}} {{if sign!=''}}data-control="{{sign}}"{{/if}}>
+  <td colspan="3">
+	{{each linkList as value index}}
+		<a class="u-inputLink" id="{{value.id}}" data-local="{{value.name}}">{{value.name}}</a>
+	{{/each}}
+  </td>
+</tr>

@@ -1,0 +1,8 @@
+fireWall=防火墙
+connectControl=连接控制
+connectStat=状态
+connectTotalNum=总连接数
+connectTotalNumTip=0表示不限制
+connectTcpNum=TCP连接数
+connectUDPNum=UDP连接数
+connectICMPNum=ICMP连接数

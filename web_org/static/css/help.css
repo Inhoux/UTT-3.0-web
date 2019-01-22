@@ -1,0 +1,136 @@
+html{
+	padding: 0 0;
+	margin: 0 0;
+}
+body{
+	padding: 0 0;
+	margin: 0 0;
+	background-color: #ffffff;
+	position: relative;
+}
+#help_left{
+	box-sizing: border-box;
+	border-right: 1px solid #C6C6C6;
+	width: 200px;
+	height: 100%;
+	overflow: auto;
+	position: absolute;
+}
+#help_left_part{
+	position: relative;
+	width: 100%;
+	height: auto;
+}
+#help_left_part .hightline{
+	height: 99%;
+	top:1%;
+	left:30px;
+	position: absolute;
+	width: 4px;
+	border-radius: 2px;
+	border:none;
+	background-color: #dedede;
+	z-index: -1;
+}
+#help_left_part h3{
+	margin-top:0px;
+	margin-bottom: 0em;
+	padding-top:0.3em;
+	padding-bottom: 0.2em;;
+	background-color: #ffffff;
+}
+#help_left_part ul{
+	margin-top:0px;
+	padding-top:19px;
+	padding-left: 20px;
+}
+#help_left_part ul li{
+	list-style: none;
+	padding-top: 5px;
+}
+#help_left_part ul a{
+	transition: all 0.2s;
+	-webkit-transition: all 0.2s;
+	-moz-transition: all 0.2s;
+	-ms-transition: all 0.2s;
+	padding-left: 6px;
+}
+
+
+#help_right{
+	margin-left: 200px;
+	position: relative;
+	overflow: auto;
+	height: 100%;
+}
+#help_right_part{
+	position: relative;
+	margin-top:10px;
+	margin-left: 3%;
+	max-width: 1280px;
+	min-width:600px;
+	padding-bottom: 50px;
+}
+#help_right_part>table{
+	position: relative;
+	width: 100%;
+	max-width: 100%;
+	margin-bottom: 100px;
+}
+.help-smtable>tbody>tr:first-child>td{
+	background-color: rgba(200,200,200,0.6);
+}
+.help-smtable>tbody>tr>td:first-child{
+	width: 80px; 
+}
+.help-smtable>tbody>tr>td{
+	border: 4px solid transparent;
+	background-color: rgba(200,200,200,0.3);
+	border-radius: 2px;
+	padding: 2px 4px;
+}
+#help_right_part>table>tbody>tr>td>p{
+	text-indent: 2em;
+	margin-top:0px;
+	margin-bottom:0px;
+	line-height: 1.65em;
+}
+
+#help_tools{
+	position: fixed;
+	z-index: 3;
+	right: 4%;
+	bottom: 80px;
+	width: 70px;
+	padding: 5px;
+	height: auto;
+}
+#help_scrollTop{
+	position: relative;
+	width: 60px;
+	height: 60px;
+	background-color: #c1c1c1;
+	cursor: pointer;
+	opacity: 0.3;
+	transition: all 0.5s;
+	border-radius: 2px;
+}
+#help_scrollTop:hover{
+	opacity: 0.8;
+}
+#help_scrollTop>div{
+	position: absolute;
+	top:21px;
+	left:14px;
+	width: 30px;
+	height: 30px;
+	border:none;
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	border-top: 6px solid #FFFFFF;
+	border-right: 6px solid #FFFFFF;
+	transform: rotate(-45deg);
+	
+	
+}

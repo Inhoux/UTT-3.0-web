@@ -1,0 +1,606 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<style>
+*{margin:0;padding:0;}
+body {
+	font:13.34px helvetica,arial,freesans,clean,sans-serif;
+	color:black;
+	line-height:1.4em;
+	background-color: #F8F8F8;
+	padding: 0.7em;
+}
+p {
+	margin:1em 0;
+	line-height:1.5em;
+}
+table {
+	font-size:inherit;
+	font:100%;
+	margin:1em;
+}
+table th{border-bottom:1px solid #bbb;padding:.2em 1em;}
+table td{border-bottom:1px solid #ddd;padding:.2em 1em;}
+input[type=text],input[type=password],input[type=image],textarea{font:99% helvetica,arial,freesans,sans-serif;}
+select,option{padding:0 .25em;}
+optgroup{margin-top:.5em;}
+pre,code{font:12px Monaco,"Courier New","DejaVu Sans Mono","Bitstream Vera Sans Mono",monospace;}
+pre {
+	margin:1em 0;
+	font-size:12px;
+	background-color:#eee;
+	border:1px solid #ddd;
+	padding:5px;
+	line-height:1.5em;
+	color:#444;
+	overflow:auto;
+	-webkit-box-shadow:rgba(0,0,0,0.07) 0 1px 2px inset;
+	-webkit-border-radius:3px;
+	-moz-border-radius:3px;border-radius:3px;
+}
+pre code {
+	padding:0;
+	font-size:12px;
+	background-color:#eee;
+	border:none;
+}
+code {
+	font-size:12px;
+	background-color:#f8f8ff;
+	color:#444;
+	padding:0 .2em;
+	border:1px solid #dedede;
+}
+img{border:0;max-width:100%;}
+abbr{border-bottom:none;}
+a{color:#4183c4;text-decoration:none;}
+a:hover{text-decoration:underline;}
+a code,a:link code,a:visited code{color:#4183c4;}
+h2,h3{margin:1em 0;}
+h1,h2,h3,h4,h5,h6{border:0;}
+h1{font-size:170%;border-top:4px solid #aaa;padding-top:.5em;margin-top:1.5em;}
+h1:first-child{margin-top:0;padding-top:.25em;border-top:none;}
+h2{font-size:150%;margin-top:1.5em;border-top:4px solid #e0e0e0;padding-top:.5em;}
+h3{margin-top:1em;}
+hr{border:1px solid #ddd;}
+ul{margin:1em 0 1em 2em;}
+ol{margin:1em 0 1em 2em;}
+ul li,ol li{margin-top:.5em;margin-bottom:.5em;}
+ul ul,ul ol,ol ol,ol ul{margin-top:0;margin-bottom:0;}
+blockquote{margin:1em 0;border-left:5px solid #ddd;padding-left:.6em;color:#555;}
+dt{font-weight:bold;margin-left:1em;}
+dd{margin-left:2em;margin-bottom:1em;}
+sup {
+    font-size: 0.83em;
+    vertical-align: super;
+    line-height: 0;
+}
+* {
+	-webkit-print-color-adjust: exact;
+}
+@media screen and (min-width: 914px) {
+    body {
+        width: 854px;
+        margin:0 auto;
+    }
+}
+@media print {
+	table, pre {
+		page-break-inside: avoid;
+	}
+	pre {
+		word-wrap: break-word;
+	}
+}
+</style>
+<title>数据缓存模块API文档</title>
+
+</head>
+<body>
+<h1>数据缓存模块API文档</h1>
+
+<h2>简介</h2>
+
+<p>数据缓存模块是专门用来缓存数据的模块，提供了数据存储、添加、删除、修改、查询等功能，和数据库类似，但远没有数据库复杂，更大的不同是本模块是将数据存储在浏览器中，页面关闭数据也就消失了。</p>
+
+<p>数据缓存模块对应的JS文件是modules目录下的Database.js。示例代码如下：</p>
+
+<pre><code>// 加载数据库模块 不需要考虑路径问题
+var Database = require('Database');
+// 通过数据库模块的接口获得数据库的引用
+var database = Database.getDatabaseObj(); 
+// 下面就可以使用database这个变量做一些有趣的事啦，下面使用的database变量就是在这里创建的
+</code></pre>
+
+<p>本模块对外只提供一个接口方法，即：getDatabaseObj，该方法会初始化一个数据库对象，并返回该数据库对象的引用，通过使用这个引用就可以进行创建数据表、存储数据等一系列操作。</p>
+
+<p>下面将介绍数据库对象具有的一些方法，其中链式方法是指在调用后可以继续调用其他方法的特殊方法，链式方法不会进行具体的操作，都是指定一些操作前的条件。</p>
+
+<h2>可以简易理解的几个方法</h2>
+
+<h3>addTitle()</h3>
+
+<ul>
+<li>设置一个默认数据表，并设置其字段列表</li>
+<li>参数，array，字段列表</li>
+</ul>
+
+
+<p>示例代码如下：</p>
+
+<pre><code>var Database = require('../../core/Database');
+var database = Database.getDatabaseObj();
+var fieldArr = ['ip', 'mask'];
+database.addTitle(fieldArr);
+</code></pre>
+
+<p>其中模块会自动添加一个primaryKey字段，方便后续操作。</p>
+
+<h3>addData(data)</h3>
+
+<ul>
+<li>向默认数据表添加数据</li>
+<li>参数， 二维数组， 要添加的数据</li>
+<li>添加数据前必须操作过addTitle,addTitle只需要操作一次即可。</li>
+</ul>
+
+
+<p>示例代码如下：</p>
+
+<pre><code>// 上一节的代码
+var Database = require('../../core/Database');
+var database = Database.getDatabaseObj();
+var fieldArr = ['ip', 'mask'];
+database.addTitle(fieldArr);
+// 添加数据
+var data = [
+    ['192.168.1.1', '255.255.0.0'],
+    ['192.190.1.1', '255.255.0.0']
+];
+database.addData(data);
+
+最终database保存的数据是这样的
+[
+    {ip : '192.168.1.1', mask : '255.255.0.0', primaryKey : '0'},
+    {ip : '192.190.1.1', mask : '255.255.0.0', primaryKey : '1'},
+]
+</code></pre>
+
+<h3>getSelect()</h3>
+
+<ul>
+<li>从默认的数据表中查询数据</li>
+<li>参数，json，查询的条件</li>
+<li>返回值，满足查找条件的json数据组成的数组</li>
+</ul>
+
+
+<p>示例代码如下：存储部分接上节所示.注意查询条件数据中的键就是字段列表中的值</p>
+
+<pre><code>// 查询mask为 255.255.0.0 的数据
+var result = database.getSelect({mask : '255.255.0.0'});
+// result的结果
+[
+    {ip : '192.168.1.1', mask : '255.255.0.0', primaryKey : '0'},
+    {ip : '192.190.1.1', mask : '255.255.0.0', primaryKey : '1'},
+]
+
+// 查询 primaryKey 为 0 的数据
+var result = database.getSelect({primaryKey : '0'});
+// result的结果
+[
+    {ip : '192.168.1.1', mask : '255.255.0.0', primaryKey : '0'}
+]
+</code></pre>
+
+<h2>内部支持方法</h2>
+
+<p>下面的方法是模块内部使用的支持方法。</p>
+
+<h3>Database()</h3>
+
+<ul>
+<li>数据库类的构造方法</li>
+<li>初始化数据库、查询条件</li>
+</ul>
+
+
+<h3>getQuery()</h3>
+
+<ul>
+<li>Database类内置方法</li>
+<li>将未定义的查询条件赋值为默认值，并返回整个查询条件</li>
+</ul>
+
+
+<h3>getTable(tableName)</h3>
+
+<ul>
+<li>Database类内置方法</li>
+<li>获得数据表</li>
+<li>参数
+
+<ul>
+<li>tableName, string, 数据表名称</li>
+</ul>
+</li>
+<li>返回值
+
+<ul>
+<li>如果存在对应的数据表，则返回该数据表</li>
+<li>如果不存在对应的数据表，则返回undefined</li>
+</ul>
+</li>
+</ul>
+
+
+<h2>对外接口方法</h2>
+
+<h3>createTable(tableName)</h3>
+
+<ul>
+<li>Database类内置方法,为链式方法</li>
+<li>创建数据表，并指定当前操作的数据表为新创建的数据表</li>
+<li>参数
+
+<ul>
+<li>tableName string, 数据表名称</li>
+</ul>
+</li>
+</ul>
+
+
+<p>代码示例如下：</p>
+
+<pre><code>// 创建 数据表名为 lan 的数据表
+database.createTable('lan');
+</code></pre>
+
+<p>但是现在还不能做什么，接着看。</p>
+
+<h3>removeTable(tableName)</h3>
+
+<ul>
+<li>Database类内置方法</li>
+<li>移除一个数据表</li>
+<li>参数
+
+<ul>
+<li>tableName string, 数据表名称</li>
+</ul>
+</li>
+<li>返回值
+
+<ul>
+<li>如果数据表存在，返回true</li>
+<li>如果数据表不存在，返回false</li>
+</ul>
+</li>
+</ul>
+
+
+<p>代码示例如下：</p>
+
+<pre><code>// 删除 数据表名为 lan 的数据表
+database.removeTable('lan');
+</code></pre>
+
+<h3>table(tableName)</h3>
+
+<ul>
+<li>Database类内置方法,为链式方法</li>
+<li>指定要操作的数据表</li>
+<li>参数
+
+<ul>
+<li>tableName string, 数据表名称</li>
+</ul>
+</li>
+<li>在进行查询、修改、删除操作时必须先调用table，除非调用了createTable</li>
+</ul>
+
+
+<p>代码示例如下：</p>
+
+<pre><code>// 指定接下来要操作的数据表是lan
+database.table('lan');
+</code></pre>
+
+<h3>setField(fieldArr)</h3>
+
+<ul>
+<li>Database类内置方法,为链式方法</li>
+<li>设置一个数据表的字段列表</li>
+<li>参数
+
+<ul>
+<li>fieldArr array, 字段数组</li>
+</ul>
+</li>
+<li>特别说明
+
+<ul>
+<li>在关系型数据库中主键是一个很重要的概念，主键是一条数据的唯一性标识，一般会指定一个字段或者多个字段的组合作为一个数据表的主键。对具体某一条数据的查找、修改、删除都是通过主键来找到这条数据并进行操作的，所以主键必须是唯一的。</li>
+<li>在真正的关系型数据库中，主键对应的字段是由开发者指定的，但是在本模块中不需要指定哪一个字段或者字段的组合是主键。因为模块会默认为每一条数据添加一个primaryKey字段，该字段的值也是模块自动生成的，并且是唯一的，所以开发者可以使用primarykey字段对具体某一条字段进行精确查找。</li>
+<li>但是因为primarykey字段的值是由模块自动生成的，当不方便获得primarykey字段的值的时候，也就无法精确查找一条数据了。所以在这种情况下开发者可以指定一个字段作为主键，但是必须保证每一条数据中该字段的值必须是唯一的。</li>
+</ul>
+</li>
+</ul>
+
+
+<p>示例代码如下：</p>
+
+<pre><code>// 声明字段列表数组
+var fieldArr = ['ip', 'mask'];
+
+// 设置lan表的字段列表， 此时lan表是之前创建的
+database.table('lan')
+        .setField(fieldArr)
+
+// 也可以在创建数据表后立即设置字段列表，
+database.createTable('lan')
+        .setField(fieldArr)
+</code></pre>
+
+<p>实际上在lan数据表中存在三个字段：ip、mask、primaryKey。其中ip、mask是开发者设置的，primaryKey是模块自动添加的。</p>
+
+<h3>where(whereJson)</h3>
+
+<ul>
+<li>Database类内置方法,为链式方法</li>
+<li>指定查询、修改、删除等操作的查询条件</li>
+<li>参数
+
+<ul>
+<li>whereJson json,查询条件</li>
+</ul>
+</li>
+</ul>
+
+
+<p>示例代码如下：</p>
+
+<pre><code>// 指定 ip = 1 作为查询条件 
+database.table('lan')
+        .where({ip:1})
+</code></pre>
+
+<h3>limit()</h3>
+
+<ul>
+<li>Database类内置方法,为链式方法</li>
+<li>指定查询的起始位置以及查询条数</li>
+</ul>
+
+
+<h3>field(fieldArr)</h3>
+
+<ul>
+<li>Database类内置方法,为链式方法</li>
+<li>指定查询时返回数据包含的字段</li>
+<li>参数
+
+<ul>
+<li>fieldArr array, 字段数组</li>
+</ul>
+</li>
+</ul>
+
+
+<p>示例代码如下：</p>
+
+<pre><code>// 声明要查询的字段列表
+var fieldArr = ['ip'];
+database.table('lan')
+        .field(fieldArr)
+</code></pre>
+
+<p>通过field方法就可以指定查询后返回的数据包含哪些字段，其中默认会把primaryKey字段返回。如果没有调用field方法或者传入空数组就会返回所有字段。</p>
+
+<h3>order（sortArr）</h3>
+
+<h3>add(data)</h3>
+
+<ul>
+<li>Database类内置方法</li>
+<li>向数据表中插入数据</li>
+<li>参数
+
+<ul>
+<li>data 二维array, 要插入的数据</li>
+</ul>
+</li>
+<li>返回值
+
+<ul>
+<li>如果数据插入成功，返回插入数据的条数</li>
+<li>如果数据表不存在，返回false</li>
+</ul>
+</li>
+</ul>
+
+
+<p>在调用add方法前必须指定要插入的表，并且这个表设置过字段列表。代码示例如下：</p>
+
+<pre><code>// 要放入数据表中的数据 
+var data = [
+    ['192.168.1.1', '255.255.0.0'],
+    ['192.168.3.1', '255.255.0.0'],
+    ['192.168.5.1'], '255.255.6.1']
+];
+
+// lan表已经通过setField方法指定了ip、mask两个字段
+var count = database.table('lan')
+                    .add(data);
+
+// 如果lan表没有设置过字段列表，在调用add方法前必须调用setField方法
+// 声明字段列表数组
+var fieldArr = ['ip', 'mask'];
+var count = database.table('lan')
+                     .setField(fieldArr)
+                    .add(data);
+
+// 在刚创建数据表时也可以添加数据
+// 声明字段列表数组
+var fieldArr = ['ip', 'mask'];
+var count = database.createTable('lan')
+                     .setField(fieldArr)
+                    .add(data);
+
+// 上述三种方式都可以向lan表中添加数据，最终count的值都是3，存储在数据表中的数据结构如下
+[
+    {primaryKey : '0', ip : '192.168.1.1', mask : '255.255.0.0'},
+    {primaryKey : '1', ip : '192.168.3.1', mask : '255.255.0.0'},
+    {primaryKey : '2', ip : '192.168.5.1', mask : '255.255.6.1'},
+]
+</code></pre>
+
+<h3>find()</h3>
+
+<ul>
+<li>Database类内置方法</li>
+<li>从数据表中查找一条数据，如果多条数据满足查询条件，则返回第一条</li>
+<li>返回值
+
+<ul>
+<li>查找成功，返回一个长度为1的数组，其元素是json，对应查询到的数据</li>
+<li>没有查找到，返回空数组</li>
+</ul>
+</li>
+</ul>
+
+
+<p>示例代码如下：</p>
+
+<pre><code>// 查找 主键为 1的数据
+var data = database.table('lan')
+                    .where({primaryKey : '1'})
+                    .find();
+// data数据结构如下
+[
+    {primaryKey : '1', ip : '192.168.3.1', mask : '255.255.0.0'}
+]
+</code></pre>
+
+<h3>select()</h3>
+
+<ul>
+<li>Database类内置方法</li>
+<li>从数据表中查找数据集</li>
+<li>返回值
+
+<ul>
+<li>查找成功，返回一个数组，其元素是json，对应查询到每一条的数据</li>
+<li>没有查找到，返回空数组</li>
+</ul>
+</li>
+</ul>
+
+
+<p>示例代码如下：</p>
+
+<pre><code>// 查找  mask 为 255.255.0.0的数据集
+var data = database.table('lan')
+                    .where({mask : '255.255.0.0'})
+                    .select();
+// data数据结构如下
+[
+    {primaryKey : '0', ip : '192.168.1.1', mask : '255.255.0.0'},
+    {primaryKey : '1', ip : '192.168.3.1', mask : '255.255.0.0'},
+]
+
+// 可以指定查找的字段
+var data = database.table('lan')
+                    .where({mask : '255.255.0.0'})
+                    .field(['mask'])
+                    .select();
+// data数据结构如下
+[
+    {primaryKey : '0',  mask : '255.255.0.0'},
+    {primaryKey : '1',  mask : '255.255.0.0'},
+]
+
+// 不调用where方法就会查询所有的数据
+var data = database.table('lan')
+                    .select();
+// data数据结构如下
+[
+    {primaryKey : '0', ip : '192.168.1.1', mask : '255.255.0.0'},
+    {primaryKey : '1', ip : '192.168.3.1', mask : '255.255.0.0'},
+    {primaryKey : '2', ip : '192.168.5.1', mask : '255.255.6.1'},
+]
+</code></pre>
+
+<h3>alter(alterJson)</h3>
+
+<ul>
+<li>Database类内置方法</li>
+<li>修改数据表中的数据</li>
+<li>参数， alterJson, 键对应数据表的字段，值对应修改后的字段的值</li>
+<li>返回值
+
+<ul>
+<li>修改成功，返回受影响的数据条数</li>
+<li>修改失败，返回false</li>
+</ul>
+</li>
+<li>说明 在修改时要调用where方法指定要修改的数据满足什么特定条件，如果不调用就会修改所有的数据</li>
+</ul>
+
+
+<p>示例代码如下：</p>
+
+<pre><code>// 将数据表中主键为1的数据的ip和mask进行修改
+var alterJson = {ip : '111', mask : '222'};
+// 指定修改条件并修改数据
+var count = database.table('lan')
+                    .where({primaryKey : '1'})
+                    .alter(alterJson);
+// 执行后count为1，
+// 对数据表进行查询
+var data = database.table('lan')
+                    .select();
+// data数据结构如下：
+[
+    {primaryKey : '0', ip : '192.168.1.1', mask : '255.255.0.0'},
+    {primaryKey : '1', ip : '111', mask : '222'},
+    {primaryKey : '2', ip : '192.168.5.1', mask : '255.255.6.1'},
+]
+</code></pre>
+
+<h3>delete()</h3>
+
+<ul>
+<li>Database类内置方法</li>
+<li>删除数据表中的数据</li>
+<li>返回值
+
+<ul>
+<li>删除成功，返回受影响的数据条数</li>
+<li>删除失败，返回false</li>
+</ul>
+</li>
+<li>说明 在删除时要调用where方法指定要修改的数据满足什么特定条件，如果不调用就会删除所有的数据</li>
+</ul>
+
+
+<p>示例代码如下：</p>
+
+<pre><code>// 指定删除条件并删除数据
+var count = database.table('lan')
+                    .where({primaryKey : '1'})
+                    .delete();
+// 执行后count为1，
+// 对数据表进行查询
+var data = database.table('lan')
+                    .select();
+// data数据结构如下：
+[
+    {primaryKey : '0', ip : '192.168.1.1', mask : '255.255.0.0'},
+    {primaryKey : '2', ip : '192.168.5.1', mask : '255.255.6.1'}
+]
+</code></pre>
+</body>
+</html>

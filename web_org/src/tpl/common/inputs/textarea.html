@@ -1,0 +1,12 @@
+<tr {{if !display}}class="u-hide"{{/if}} {{if sign!=''}}data-control="{{sign}}"{{/if}}>
+  <td>
+    <label for="" data-local="{{prevWord}}">{{prevWord}}</label>
+    {{if necessary == true}}<span class="u-necessary">*</span>{{/if}}</span><span> </span>
+  </td>
+  <td>
+    <textarea name="{{inputList[0]}}"  class="{{inputList[2]}}" placeholder="{{inputList[3]}}" {{if disabled}} disabled="disabled" {{/if}} >{{inputList[1]}}</textarea>
+  </td>
+  <td>
+    <span class="u-prompt-word" data-local="{{afterWord}}">{{afterWord}}</span>
+  </td>
+</tr>

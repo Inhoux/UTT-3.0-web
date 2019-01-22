@@ -1,0 +1,12 @@
+sysObj=系统对象
+addrGroup=地址组
+groupNames=组名
+ipEntrynum=IP成员
+addAddrGroup=新增地址组
+editAddrGroup=编辑地址组
+name=名称
+addrType=地址类型
+newAddr=新地址
+existAddressGroup=已有地址组
+startAddr=起始地址
+endAddr=结束地址

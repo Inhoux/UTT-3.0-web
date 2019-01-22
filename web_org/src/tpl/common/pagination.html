@@ -1,0 +1,9 @@
+<nav>
+  <ul class="pagination">
+    <li><a id="previous" href="#">&laquo;</a></li>
+    {{each pagination_list as list index}}
+    <li><a href="#" data-local="{{list[1]}}">{{list[1]}}</a></li>
+    {{/each}}
+    <li><a id="next" href="#">&raquo;</a></li>
+  </ul>
+</nav>

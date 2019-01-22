@@ -1,0 +1,134 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<style>
+*{margin:0;padding:0;}
+body {
+	font:13.34px helvetica,arial,freesans,clean,sans-serif;
+	color:black;
+	line-height:1.4em;
+	background-color: #F8F8F8;
+	padding: 0.7em;
+}
+p {
+	margin:1em 0;
+	line-height:1.5em;
+}
+table {
+	font-size:inherit;
+	font:100%;
+	margin:1em;
+}
+table th{border-bottom:1px solid #bbb;padding:.2em 1em;}
+table td{border-bottom:1px solid #ddd;padding:.2em 1em;}
+input[type=text],input[type=password],input[type=image],textarea{font:99% helvetica,arial,freesans,sans-serif;}
+select,option{padding:0 .25em;}
+optgroup{margin-top:.5em;}
+pre,code{font:12px Monaco,"Courier New","DejaVu Sans Mono","Bitstream Vera Sans Mono",monospace;}
+pre {
+	margin:1em 0;
+	font-size:12px;
+	background-color:#eee;
+	border:1px solid #ddd;
+	padding:5px;
+	line-height:1.5em;
+	color:#444;
+	overflow:auto;
+	-webkit-box-shadow:rgba(0,0,0,0.07) 0 1px 2px inset;
+	-webkit-border-radius:3px;
+	-moz-border-radius:3px;border-radius:3px;
+}
+pre code {
+	padding:0;
+	font-size:12px;
+	background-color:#eee;
+	border:none;
+}
+code {
+	font-size:12px;
+	background-color:#f8f8ff;
+	color:#444;
+	padding:0 .2em;
+	border:1px solid #dedede;
+}
+img{border:0;max-width:100%;}
+abbr{border-bottom:none;}
+a{color:#4183c4;text-decoration:none;}
+a:hover{text-decoration:underline;}
+a code,a:link code,a:visited code{color:#4183c4;}
+h2,h3{margin:1em 0;}
+h1,h2,h3,h4,h5,h6{border:0;}
+h1{font-size:170%;border-top:4px solid #aaa;padding-top:.5em;margin-top:1.5em;}
+h1:first-child{margin-top:0;padding-top:.25em;border-top:none;}
+h2{font-size:150%;margin-top:1.5em;border-top:4px solid #e0e0e0;padding-top:.5em;}
+h3{margin-top:1em;}
+hr{border:1px solid #ddd;}
+ul{margin:1em 0 1em 2em;}
+ol{margin:1em 0 1em 2em;}
+ul li,ol li{margin-top:.5em;margin-bottom:.5em;}
+ul ul,ul ol,ol ol,ol ul{margin-top:0;margin-bottom:0;}
+blockquote{margin:1em 0;border-left:5px solid #ddd;padding-left:.6em;color:#555;}
+dt{font-weight:bold;margin-left:1em;}
+dd{margin-left:2em;margin-bottom:1em;}
+sup {
+    font-size: 0.83em;
+    vertical-align: super;
+    line-height: 0;
+}
+* {
+	-webkit-print-color-adjust: exact;
+}
+@media screen and (min-width: 914px) {
+    body {
+        width: 854px;
+        margin:0 auto;
+    }
+}
+@media print {
+	table, pre {
+		page-break-inside: avoid;
+	}
+	pre {
+		word-wrap: break-word;
+	}
+}
+</style>
+<title>关于V3.0的个人建议</title>
+
+</head>
+<body>
+<h1>关于V3.0的个人建议</h1>
+
+<h2>工作流程</h2>
+
+<ul>
+<li>确定页面功能</li>
+<li>根据功能确定页面需要使用哪些接口，并确定每个接口的类型（get、post），一定要确定每个接口返回和需要发送的数据到底是什么</li>
+<li>实现每一个接口，实现后可以用我提供的测试代码进行测试</li>
+<li>写页面</li>
+</ul>
+
+
+<p>对于页面的书写，先将页面进行显示(涉及get请求)，最好将前端代码放入路由器去操作。</p>
+
+<p>页面可以显示后，可以去实现修改、删除、新增等功能。这部分功能不需要放入路由器中去操作。</p>
+
+<p>使用静态数据进行显示后，修改、删除、新增等操作只需要在firebug中查看发送的数据是否正确即可。</p>
+
+<h2>如何进行后台接口测试</h2>
+
+<p>根据一个页面的功能，确定有哪些接口后，就可以实现这些接口。接口完成后一定要进行测试。我已经写好了测试使用的代码。进行简单修改就可以</p>
+
+<h2>编辑器推荐</h2>
+
+<p>个人推荐sublime编辑器，免费，而且有很多好用的插件。如何使用请自行百度。</p>
+
+<h2>如何调试前端</h2>
+
+<p>使用firebug，如何安装百度上很清楚</p>
+
+<p>常用的还有控制台打印，常用的console命令请看网页：<a href="http://webres.wang/9-chrome-console-skills-for-js-debug/">九个Console命令，让js调试更简单</a></p>
+</body>
+</html>

@@ -1,0 +1,367 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<style>
+*{margin:0;padding:0;}
+body {
+	font:13.34px helvetica,arial,freesans,clean,sans-serif;
+	color:black;
+	line-height:1.4em;
+	background-color: #F8F8F8;
+	padding: 0.7em;
+}
+p {
+	margin:1em 0;
+	line-height:1.5em;
+}
+table {
+	font-size:inherit;
+	font:100%;
+	margin:1em;
+}
+table th{border-bottom:1px solid #bbb;padding:.2em 1em;}
+table td{border-bottom:1px solid #ddd;padding:.2em 1em;}
+input[type=text],input[type=password],input[type=image],textarea{font:99% helvetica,arial,freesans,sans-serif;}
+select,option{padding:0 .25em;}
+optgroup{margin-top:.5em;}
+pre,code{font:12px Monaco,"Courier New","DejaVu Sans Mono","Bitstream Vera Sans Mono",monospace;}
+pre {
+	margin:1em 0;
+	font-size:12px;
+	background-color:#eee;
+	border:1px solid #ddd;
+	padding:5px;
+	line-height:1.5em;
+	color:#444;
+	overflow:auto;
+	-webkit-box-shadow:rgba(0,0,0,0.07) 0 1px 2px inset;
+	-webkit-border-radius:3px;
+	-moz-border-radius:3px;border-radius:3px;
+}
+pre code {
+	padding:0;
+	font-size:12px;
+	background-color:#eee;
+	border:none;
+}
+code {
+	font-size:12px;
+	background-color:#f8f8ff;
+	color:#444;
+	padding:0 .2em;
+	border:1px solid #dedede;
+}
+img{border:0;max-width:100%;}
+abbr{border-bottom:none;}
+a{color:#4183c4;text-decoration:none;}
+a:hover{text-decoration:underline;}
+a code,a:link code,a:visited code{color:#4183c4;}
+h2,h3{margin:1em 0;}
+h1,h2,h3,h4,h5,h6{border:0;}
+h1{font-size:170%;border-top:4px solid #aaa;padding-top:.5em;margin-top:1.5em;}
+h1:first-child{margin-top:0;padding-top:.25em;border-top:none;}
+h2{font-size:150%;margin-top:1.5em;border-top:4px solid #e0e0e0;padding-top:.5em;}
+h3{margin-top:1em;}
+hr{border:1px solid #ddd;}
+ul{margin:1em 0 1em 2em;}
+ol{margin:1em 0 1em 2em;}
+ul li,ol li{margin-top:.5em;margin-bottom:.5em;}
+ul ul,ul ol,ol ol,ol ul{margin-top:0;margin-bottom:0;}
+blockquote{margin:1em 0;border-left:5px solid #ddd;padding-left:.6em;color:#555;}
+dt{font-weight:bold;margin-left:1em;}
+dd{margin-left:2em;margin-bottom:1em;}
+sup {
+    font-size: 0.83em;
+    vertical-align: super;
+    line-height: 0;
+}
+* {
+	-webkit-print-color-adjust: exact;
+}
+@media screen and (min-width: 914px) {
+    body {
+        width: 854px;
+        margin:0 auto;
+    }
+}
+@media print {
+	table, pre {
+		page-break-inside: avoid;
+	}
+	pre {
+		word-wrap: break-word;
+	}
+}
+</style>
+<title>Serialize模块接口API文档</title>
+
+</head>
+<body>
+<h1>Serialize模块接口API文档</h1>
+
+<h2>简介</h2>
+
+<p>Serialize模块依赖于jquery，位于modules/core文件夹中，具有以下主要功能：</p>
+
+<ul>
+<li>获取网页中input(text password radio checkbox )、select、textarea 的name和value，提供数组、url字符串、json等格式的返回。</li>
+<li>数组、json、url字符串的相互转化</li>
+<li>更改键或者更改值</li>
+</ul>
+
+
+<p>引入此模块的代码如下：</p>
+
+<pre><code>// 不需要考虑路径问题
+var Serialize = require('Serialize');
+</code></pre>
+
+<p>假设页面中如下html结构，模块方法的介绍以此结构为基础。</p>
+
+<pre><code>&lt;div id="serialize-test"&gt;
+
+    // 普通输入框
+    &lt;input type="text" name="user"&gt; 
+
+    // 一组复选框
+    &lt;input type="checkbox" name="book" value="js"&gt;js
+    &lt;input type="checkbox" name="book" value="html"&gt;html
+    &lt;input type="checkbox" name="book" value="java"&gt;java
+
+    // 一组单选框
+    &lt;input type="radio" name="color" value="red" checked&gt;red
+    &lt;input type="radio" name="color" value="orange" checked&gt;orange
+
+    // 下拉框
+    &lt;select name="sex" id=""&gt;
+      &lt;option value="male"&gt;male&lt;/option&gt;
+      &lt;option value="female"&gt;female&lt;/option&gt;
+    &lt;/select&gt;
+
+    // 文本输入框
+    &lt;textarea name="message" id="" cols="3" rows="3"&gt;&lt;/textarea&gt;
+
+    // 隐藏的输入框
+    &lt;input type="hidden" name="serect" value="iii"&gt;
+
+&lt;/div&gt;
+</code></pre>
+
+<p>假设用户在第一个输入框中输入admin， 复选框选择了html和java, 单选框选择了orange， 下拉框选择了female, 文本输入框输入了my message is here</p>
+
+<h2>getQueryArrs</h2>
+
+<ul>
+<li>说明  ： 将网页中input(text password radio checkbox )、select、textarea 的name和value提取出来，以数组形式返回。</li>
+<li>参数  ： $dom 是jQuery对象，指定查找的范围</li>
+<li>返回值： 二维数组,例如： [["name", "zhnag"], ["password", "1234"]]</li>
+</ul>
+
+
+<p>示例代码 ：</p>
+
+<pre><code>var arr = Serialize.getQueryArrs($('#serialize-test));
+得到的arr为：
+[
+    ["user", "admin"], 
+    ["book", "html"], 
+    ["book", "java"], 
+    ["color", "orange"], 
+    ["sex", "female"], 
+    ["message", "my mesage is here"], 
+    ["serect", "iii"]
+]
+</code></pre>
+
+<h2>getQueryStrs</h2>
+
+<ul>
+<li>说明 ： 将网页中input(text password radio checkbox )、select、textarea 的name和value提取出来，以url字符串形式返回。</li>
+<li>参数 ： $dom 是jQuery对象，指定查找的范围</li>
+<li>返回值 ： url字符串，例如：name=zhang&amp;age=21</li>
+</ul>
+
+
+<p>示例代码：</p>
+
+<pre><code>var str = Serialize.getQueryStrs($('#serialize-test));
+得到的str为：
+user=admin&amp;book=html&amp;book=java&amp;color=orange&amp;sex=female&amp;message=my mesage is here&amp;serect=iii
+</code></pre>
+
+<h2>queryArrsToStr</h2>
+
+<ul>
+<li>说明 ： 将包含查询数组的二维数组转换为查询字符串</li>
+<li>参数 ： queryArr 包含查询数组的二维数组，例如： [["name", "zhnag"], ["password", "1234"]]</li>
+<li>返回值 ： url字符串，例如：name=zhang&amp;password=1234</li>
+</ul>
+
+
+<p>示例代码如下：</p>
+
+<pre><code>var arr = [
+    ["user", "admin"], 
+    ["book", "html"], 
+    ["book", "java"], 
+    ["color", "orange"], 
+    ["sex", "female"], 
+    ["message", "my mesage is here"], 
+    ["serect", "iii"]
+];
+var str = Serialize.queryArrsToStr(arr);
+得到的str为：
+user=admin&amp;book=html&amp;book=java&amp;color=orange&amp;sex=female&amp;message=my mesage is here&amp;serect=iii
+</code></pre>
+
+<h2>queryArrsToJson</h2>
+
+<ul>
+<li>说明 ： 将包含查询数组的二维数组转换为json</li>
+<li>参数 ： queryArr 包含查询数组的二维数组，例如： [["name", "zhnag"], ["password", "1234"]]</li>
+<li>返回值 ： json ,例如：{name : 'zhnag', password : '1234'}</li>
+</ul>
+
+
+<h2>queryStrsToArr</h2>
+
+<ul>
+<li>说明 ： 将url字符串转换为二维数组</li>
+<li>参数 ： queryStrs url字符串,例如：name=zhang&amp;password=1234</li>
+<li>返回值 ： 包含查询数组的二维数组，例如： [["name", "zhnag"], ["password", "1234"]]</li>
+</ul>
+
+
+<p>示例代码如下：</p>
+
+<pre><code>var str = 'user=admin&amp;book=html&amp;book=java&amp;color=orange&amp;sex=female&amp;message=my mesage is here&amp;serect=iii';
+var arr = Serialize.queryStrsToArr(str);
+得到的arr如下：
+[
+    ["user", "admin"], 
+    ["book", "html"], 
+    ["book", "java"], 
+    ["color", "orange"], 
+    ["sex", "female"], 
+    ["message", "my mesage is here"], 
+    ["serect", "iii"]
+]
+</code></pre>
+
+<h2>queryStrsToJson</h2>
+
+<ul>
+<li>说明 ： 将url字符串转换为json</li>
+<li>参数 ： queryStrs url字符串,例如：name=zhang&amp;password=1234</li>
+<li>返回值 ： json，例如： {name : 'zhnag', password : '1234'}</li>
+</ul>
+
+
+<h2>queryJsonToArr</h2>
+
+<ul>
+<li>说明 ： 将json转化为二维数组</li>
+<li>参数 ： json 例如：{name : 'zhnag', password : '1234'}</li>
+<li>返回值： 二维数组， 例如： [["name", "zhnag"], ["password", "1234"]]</li>
+</ul>
+
+
+<h2>queryJsonToStr</h2>
+
+<ul>
+<li>说明 ： 将json转化为字符串</li>
+<li>参数 ： json 例如：{name : 'zhnag', password : '1234'}</li>
+<li>返回值 ： 查询字符串，例如：name=zhang&amp;password=1234</li>
+</ul>
+
+
+<h2>changeKeyInQueryArrs</h2>
+
+<ul>
+<li>说明 ： 将getQueryArrs方法返回形式的数组中的键替换掉。</li>
+<li>参数 ：
+
+<ul>
+<li>queryArr 包含查询数组的二维数组，例如： [["name", "zhnag"], ["password", "1234"]]</li>
+<li>keyArr 键值数组，例如 ：[['user', 'username'], ['color', 'yanse']]，其中指定将user替换为username,color替换为yanse</li>
+</ul>
+</li>
+<li>返回值 替换过的 包含查询数组的二维数组</li>
+</ul>
+
+
+<p>示例代码如下：</p>
+
+<pre><code>var arr = [
+    ["user", "admin"], 
+    ["book", "html"], 
+    ["book", "java"], 
+    ["color", "orange"], 
+    ["sex", "female"], 
+    ["message", "my mesage is here"], 
+    ["serect", "iii"]
+];
+var keys = [
+    ['user', 'yonghuming']
+];
+// 将 user 替换为 yonghuming 
+arr = Serialize.changeKeyInQueryArrs(arr, keys);
+
+得到的arr如下
+[
+    ["yonghuming", "admin"], 
+    ["book", "html"], 
+    ["book", "java"], 
+    ["color", "orange"], 
+    ["sex", "female"], 
+    ["message", "my mesage is here"], 
+    ["serect", "iii"]
+];
+</code></pre>
+
+<h2>getValue</h2>
+
+<ul>
+<li>说明 ：根据键从包含查询数组的二维数组中读取对应的值</li>
+<li>参数 ：
+
+<ul>
+<li>queryArrs : 包含查询数组的二维数组</li>
+<li>key   : 要查找的key</li>
+</ul>
+</li>
+<li>返回值 ： array key对应的值组成的数组</li>
+</ul>
+
+
+<p>示例代码如下：</p>
+
+<pre><code>var arr = [
+    ["user", "admin"], 
+    ["book", "html"], 
+    ["book", "java"], 
+    ["color", "orange"], 
+    ["sex", "female"], 
+    ["message", "my mesage is here"], 
+    ["serect", "iii"]
+];
+
+var user = Serialize.getValue(arr, 'user');
+// user 的值为 ['admin']
+
+var books = Serialize.getValue(arr, 'book');
+// books 的值为 ['html', 'java']
+</code></pre>
+
+<h2>mergeQueryStr</h2>
+
+<ul>
+<li>说明 ： 合并url字符串</li>
+<li>参数 ： queryStrArr URL字符串组成的数组，例如：['name=zhang&amp;age=21', 'pwd=1234']</li>
+<li>返回值 ： 合并后的url字符串，例如：name=zhang&amp;age=21&amp;pwd=1234</li>
+</ul>
+
+</body>
+</html>

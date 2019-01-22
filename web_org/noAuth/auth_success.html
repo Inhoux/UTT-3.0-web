@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>认证成功</title>
+		
+		<link rel="stylesheet" href="./userauth.css"/>
+		<link rel="shortcut icon" href="/noAuth/images/favicon.ico" type="image/x-icon" />
+	</head>
+	<body>
+		<div id="suc_box">
+			<p style="margin-bottom: 10px;">认证成功！</p>
+			<hr />
+			<div class="suc_info">
+				<p>
+					<span>有效期:</span>
+					<span id="validity" name="validity"></span>
+					<p style="text-indent:2em; word-break: break-word;">
+						您可以点击“安全下线”，安全及时的完成下线动作，若此页面被意外关闭了，您也可以访问页面：http://192.168.1.1/notice/auth_success.html进行想要的操作。
+					</p>
+				</p>
+				<form id="login_success">
+					<table>
+						<tbody>
+							<tr>
+								<td><input type="hidden" name="userCommand" value="logoff"></td>
+							</tr>	
+						</tbody>
+					</table>
+				</form>
+				<button id="modify_password">修改密码</button>
+				<button id="safe_offline">安全下线</button>
+			</div>
+			
+		</div>
+		<!--<script type="text/javascript" src="/libs/js/jquery-2.1.1.min.js" ></script>-->
+		<script type="text/javascript" src="./auth_success.js"></script>
+	</body>
+</html>

@@ -1,0 +1,8 @@
+<span>当前位置：</span>
+<ol class="breadcrumb utt-inline-block">
+  <li data-local="{{path_list[0]}}">{{path_list[0]}}</li>
+  {{each path_list[1] as list index}}
+    <li data-local="{{list[1]}}">{{list[1]}}</li>
+  {{/each}}
+  <li data-local="{{path_list[2]}}">{{path_list[2]}}</li>
+</ol>

@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="pragma" content="no-cache"  />
+		<meta http-equiv="content-type" content="no-cache, must-revalidate" />
+		<meta http-equiv="expires" content="Wed, 26 Feb 1997 08:21:57 GMT"/>
+		<meta charset="UTF-8">
+		<title id="page_title">认证页面</title>
+		<link rel="shortcut icon" href="/noAuth/images/favicon.ico" type="image/x-icon" />
+		<style type="text/css">
+			html{
+				background: -moz-linear-gradient(top, #3a87d5 0%, #0b6cd0 100%);
+				background: -webkit-linear-gradient(top, #3a87d5 0%, #0b6cd0 100%);
+				background: -o-linear-gradient(top, #3a87d5 0%, #0b6cd0 100%);
+				background: -ms-linear-gradient(top, #3a87d5 0%, #0b6cd0 100%);
+				background: #0b6cd0;
+				background: linear-gradient(to bottom, #3a87d5 0%, #0b6cd0 100%);
+				height: 100%;
+			}
+			html,body{
+				margin: 0;
+				padding: 0;
+				 font-family: "Microsoft YaHei","微软雅黑","Helvetica Neue", Helvetica, STHeiTi,"黑体","宋体",sans-serif;
+			  	font-size: 14px;
+			  	color:#33333f;
+			}
+			body{
+				width: 100%;
+				height: 500px;
+			}
+			hr{
+				position: relative;
+				margin: 0 auto;
+				width: 90%;
+				/*border:1px solid rgba(150,150,150,0.5);*/
+				border:1px solid rgba(10, 113, 215,0.5);
+				box-shadow: 0px 4px 9px #898989;
+			}
+			button{
+				width: 80px;
+				height: 30px;
+				cursor: pointer;
+				border-radius: 4px;
+				margin-left: 10px;
+				margin-right: 10px;
+			  border: 1px solid #bcbcbf;
+			  border-radius: 4px;
+			  color: #5F5F5F;
+			  outline: none !important;
+			  background: rgba(255,255,255,0.7);
+			  box-shadow: -1px -1px 2px #efefef inset;
+			  transition: all 0.1s linear;
+			  -webkit-transition: all 0.1s linear;
+			  -moz-transition: all 0.1s linear;
+			  -o-transition: all 0.1s linear;
+			}
+			button:hover {
+			  color: #288ff5;
+			  border: 1px solid #cccccc;
+			  outline: none !important;
+			  background: #f1f1f1 !important;
+			}
+			button:active {
+			  outline: none !important;
+			  box-shadow: 1px 2px 7px #c6c6c6 inset;
+			  text-shadow: 0 0 3px #FFFFFF;
+			  background: #f1f1f1 !important;
+			  color: #288ff5 !important;
+			}
+			button:focus {
+			  border: 1px solid #0a73dc;
+			  color: #288ff5 !important;
+			  outline: none !important;
+			  background: #f1f1f1 !important;
+			  box-shadow: 1px 2px 7px #c6c6c6 inset;
+			  text-shadow: 0 0 3px #FFFFFF;
+			}
+			input{
+			  box-sizing: border-box;
+			  border: 1px solid #bcbcbf;
+			  border-radius: 2px;
+			  padding: 1px 5px 1px 10px;
+			  box-shadow: none !important;
+			  outline: none;
+			  transition: all 0.1s linear;
+			  -webkit-transition: all 0.1s linear;
+			  -moz-transition: all 0.1s linear;
+			  -o-transition: all 0.1s linear;
+			  background: -moz-linear-gradient(top, #F5F5F5 0%, #FFFFFF 45%);
+			  background: -webkit-linear-gradient(top, #F5F5F5 0%, #FFFFFF 45%);
+			  background: -o-linear-gradient(top, #F5F5F5 0%, #FFFFFF 45%);
+			  background: -ms-linear-gradient(top, #F5F5F5 0%, #FFFFFF 45%);
+			  background: linear-gradient(to bottom, #F5F5F5 0%, #FFFFFF 45%);
+			  height: 26px;
+			  width: 160px;
+			}
+			input:hover {
+			  box-shadow: none !important;
+			  border-color: #0a76e0;
+			}
+			input:focus {
+			  border-color: #0a76e0;
+			  background: rgba(255, 254, 229, 0.9);
+			}
+			input:active {
+			  border: 1px solid #bbbbbb;
+			  background: rgba(255, 254, 229, 0.9);
+			}
+			/*登录页面*/
+			#bgdiv{
+				position: absolute;
+				top: 0px;
+				left:0px;
+				height: 100%;
+				width: 0px;
+			
+			}
+			#bgimg{
+				position: relative;
+				margin:0px auto;
+				display: block;
+				height: auto;
+			}
+			#login_box{
+				position: absolute;
+				top:25%;
+				right: 50%;
+				margin-right: -175px;
+				width:350px;
+				min-height: 300px;
+				padding-bottom: 10px;
+				border: 1px solid #ededed;
+				box-shadow: 0 0 3px #ababab;
+				border-radius: 6px;
+				text-align: center;
+				background-color: rgb(255,255,255);
+				opacity: 0.8;
+				filter:alpha(opacity=80);
+			}
+			#login_box>*{
+				margin-top: 18px;
+			}
+			#login_box>p{
+				margin-top:25px;
+			}
+			
+			#title_word{
+				font-size: 17px;
+				font-weight: bold;
+			}
+			#note_word{
+				font-size: 12px;
+				color: #65656f;
+				text-align: center;
+			}
+			
+			#login_form>table{
+				margin: 0 auto;
+				text-align: left;
+			}
+			#login_form>table>tbody>tr>td{
+				padding: 5px 10px;
+			}
+			
+			
+			#error_str{
+				color: #FF0000;
+				max-width: 224px;
+				-webkit-margin-before: 0px !important;
+				-webkit-margin-after: 0px !important;
+				min-height: 19px;
+				font-size: 13px;
+			}
+			#tipwords{
+				color: #767676;
+				max-width: 224px;
+				-webkit-margin-before: 0px !important;
+				-webkit-margin-after: 0px !important;
+				min-height: 19px;
+				font-size: 13px;
+			}
+			.u-hide{
+				display: none;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="bgdiv">
+			<img id="bgimg" src="" />
+		</div>
+		<div id="login_box" style="right: 20%;">
+			<p id="title_word"></p>
+			<hr />
+			<form id="login_form">
+				<table>
+					<tbody>
+						<tr>
+							<td colspan="2"><span id="tipwords">请输入从网管那获取的用户名及密码</span></td>
+						</tr>
+						<tr>
+							<td><span id="l_username">用户名</span></td>
+							<td><input type="text" name="userName"/></td>
+						</tr>
+						<tr>
+							<td><span id="l_password">密码</span></td>
+							<td><input type="password" name="userPasswd" /></td>
+						</tr>
+						<tr>
+							<!--<td><input type="hidden" name="userCommand" value="userAuth"></td>-->
+							<td colspan="2"><p class="" id="error_str"></p></td>
+						</tr>
+					</tbody>
+				</table>
+			</form>
+
+			<button id="login_btn">登录</button>
+			<button id="reset">重填</button>
+			<p id="note_word" style="word-break: break-all;white-space: normal;word-wrap: break-word;text-align: center;margin: 0 51px;">hello</p>
+		</div>
+		<!--<script type="text/javascript" src="/libs/js/jquery-2.1.1.min.js" ></script>-->
+		<script type="text/javascript">
+			
+			// 默认语言
+			var lang = 'zhcn';
+			
+			// 迷你字典
+			var dic = {
+				zhcn :{
+					username : '用户名',
+					password : '密码',
+					login	 : '登录',
+					reset    : '重填',
+					err_msg1 : '字典里的错误提示一',
+					C_LANG_INDEX_SUCCESS_IDENTITY : '认证成功！',
+					C_LANG_INDEX_MAX_ACC_SESSION : '已达到账号最大会话数',
+					C_LANG_INDEX_MAX_SYS_SESSION  : '已达到系统最大会话数',
+					C_LANG_INDEX_APPLY_SES_ERR : '申请Web认证会话失败',
+					C_LANG_INDEX_WEBAUTH_ACC_EXPIRED :   '账号过期',
+					C_LANG_INDEX_WEBAUTH_NO_TIME  :  '没有剩余时间',
+					C_LANG_INDEX_AUTHENTICATION_FAILURE : '认证失败！',
+					webAuthPageDefault : 'web认证页面'
+				},
+				en  :{
+					username : 'Username',
+					password : 'Password',
+					login	 : 'Login',
+					reset    : 'Reset',
+					err_msg1 : 'Err_msg1'
+				}
+			};
+			
+			
+			 function delCookie(name,path)
+			 {
+			         var exp = new Date();
+			         exp.setTime(exp.getTime() - 1);
+			         var cval=getCookie(name);
+			         if(cval!=null)
+			                 document.cookie= name + "="+cval+";expires="+exp.toGMTString()+";path="+path;
+			 }
+			
+			 function GetQueryString(name)
+			 {
+			      var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+			      var r = window.location.search.substr(1).match(reg);
+			      if(r!=null)return  unescape(r[2]); return null;
+			 }
+			
+			 function getCookie(name) {
+			     var cookieName = encodeURIComponent(name) + "=",
+			         cookieStart = document.cookie.indexOf(cookieName),
+			         cookieValue = null,
+			         cookieEnd;
+			     if (cookieStart > -1) {
+			         cookieEnd = document.cookie.indexOf(";", cookieStart);
+			         if (cookieEnd == -1) {
+			             cookieEnd = document.cookie.length;
+			         }
+			         var ba = document.cookie.substring(cookieStart + cookieName.length, cookieEnd)
+			         cookieValue = decodeURIComponent(ba);
+			     }
+			     return cookieValue;
+			 }
+			
+			window.onload=function() {
+				
+			    // 多国语言
+			    var l_username = document.getElementById("l_username");
+			    var l_password = document.getElementById("l_password");
+			    var login_btn = document.getElementById("login_btn");
+			    var resetbtn = document.getElementById("reset");
+			    var bgimg = document.getElementById('bgimg');
+				var login_btn = document.getElementById("login_btn");
+			    l_username.innerHTML = dic[lang]['username'];
+			    l_password.innerHTML = dic[lang]['password'];
+			    login_btn.innerHTML  = dic[lang]['login'];
+			    resetbtn.innerHTML   = dic[lang]['reset'];
+			    ajax();
+			    function ajax() {
+			        //先声明一个异步请求对象
+			        var xmlHttpReg = null;
+			          
+			        xmlHttpReg = new XMLHttpRequest(); //实例化一个xmlHttpReg
+			          
+			        //如果实例化成功,就调用open()方法,就开始准备向服务器发送请求
+			        if (xmlHttpReg != null) {
+			            xmlHttpReg.open("GET", "/noAuth/noAuthAspOut.asp?optType=webAuthPage", true);
+			            xmlHttpReg.send(null);
+			            xmlHttpReg.onreadystatechange = doResult; //设置回调函数
+			        }
+			        //回调函数
+			        //设定函数doResult()
+			        function doResult() {
+			            if (xmlHttpReg.readyState == 4) {//4代表执行完成
+			                if (xmlHttpReg.status == 200) {//200代表执行成功
+			                  	var result = xmlHttpReg.responseText;
+			                  	eval(result);
+					            var pictureDir = "";
+					            if (activePic == 1) {
+					                if (chooseimg == 1) {
+					                    var pictureDir = picturedir;
+					                } else {
+					                    var pictureDir = pictureUrl;
+					                }
+					            }
+					            var data = {
+					                pagehead: webAuthSuccessName,
+					                title: tipstitle,
+					                tip:tipsinfo, //提示
+					                bottom: hidcontact,
+					                img: pictureDir
+					            }
+					            resetwindow(data);
+			                }
+			            }
+			
+			        }
+			    }
+			    function resetwindow(demodata) {
+			        //初始化点击事件
+			        setFuncs()
+			            //调整内容
+//			        var page_title=document.getElementById("page_title");
+			        var title_word=document.getElementById("title_word");
+			        var tipwords  =document.getElementById("tipwords");
+			        var note_word =document.getElementById("note_word");
+			        var bgimg = document.getElementById('bgimg');
+			        if(dic[lang][demodata.pagehead]){
+//			        	alert(dic[lang][demodata.pagehead])
+			        	document.title=dic[lang][demodata.pagehead].toString();
+			        }else{
+			        	document.title=demodata.pagehead;
+			        }
+//			     	page_title.innerHTML=dic[lang][demodata.pagehead]?dic[lang][demodata.pagehead]:demodata.pagehead;
+			        //判断是否上传有图片
+			       
+			         title_word.innerHTML=demodata.title;
+			        tipwords.innerHTML  =demodata.tip;
+					demodata.bottom=demodata.bottom.replace(/\r\n/g,'<br>');
+			        demodata.bottom=demodata.bottom.replace(/\n/g,'<br>');
+			        note_word.innerHTML   =demodata.bottom;
+			        if(demodata.img){
+			        	
+			        	bgimg.src = demodata.img;
+//			        	document.style.background = "linear-gradient(to right,#fff,#fff )";
+			        	document.documentElement.style.background="rgb(255,255,255)";
+			        }else{
+			        	delete bgimg;
+			        }
+			        
+			       
+					var ww = parseInt(window.innerWidth) || parseInt(document.documentElement.clientWidth); //窗宽
+			    	var wh = parseInt(window.innerHeight) || parseInt(document.documentElement.clientHeight); //窗高
+				    var iw = bgimg.width; //原图宽
+				    var ih = bgimg.height; //原图高
+				    //规定图片最大宽高
+				    if (iw > ww) {
+				        bgimg.style.maxWidth  = ww +"px";
+				    }
+				    if( ih > wh) {
+				        bgimg.style.maxHeight= wh +"px";
+				    }
+				    bgimg.onload = function(){
+			        	//图片布局
+				   		imgResize();
+				   		window.onresize = function() {
+						    //初始化布局
+						    bodyResize();
+						    //图片布局
+						    imgResize();
+						};
+			        }
+			        //初始化布局
+			        bodyResize();
+			    };
+			    
+			};
+			
+			
+			
+			//窗口布局调整
+			function bodyResize() {
+			//  var wh = window.innerHeight;
+			    document.getElementsByTagName('body')[0].style.height = document.getElementsByTagName('html')[0].style.height;
+			}
+			//图片布局调整
+			function imgResize() {
+			    var ww = parseInt(window.innerWidth) || parseInt(document.documentElement.clientWidth); //窗宽
+			    var wh = parseInt(window.innerHeight) || parseInt(document.documentElement.clientHeight); //窗高
+			    var lp = parseInt(document.getElementById("login_box").offsetLeft); //左余
+			    var iw = bgimg.offsetWidth; //图宽
+			    var ih = parseInt(bgimg.offsetHeight); //图高
+			    if (iw <= lp) {
+			    	bgimg.style.width = iw + "px";
+			    	bgimg.style.marginLeft = ((lp - iw) / 2) + "px";
+			    } else {
+			        bgimg.style.width = iw + "px";
+			        bgimg.style.marginLeft = ((ww - iw) / 2) + "px";
+			    }
+			    if (ih < wh) {
+			    	bgimg.style.marginTop = ((wh - ih) / 2) + "px";
+			    } else {
+			        bgimg.style.marginTop = "0px";
+			        document.body.style.overflow = "hidden";
+			    }
+			}
+			
+			//表单事件绑定
+			function setFuncs() {
+				
+			    //登录按钮
+			    login_btn.onclick = function(){
+			    	var user = document.querySelector("input[name='userName']");
+					var pwd  = document.querySelector("input[name='userPasswd']");
+			    	login_btn.blur();
+			        ajax();
+			        function ajax() {
+				          //先声明一个异步请求对象
+				          var xmlHttpReg = null;
+				            xmlHttpReg = new XMLHttpRequest(); //实例化一个xmlHttpReg
+				        
+				          //如果实例化成功,就调用open()方法,就开始准备向服务器发送请求
+				          if (xmlHttpReg != null) {
+				              xmlHttpReg.open("POST", "/goform/formWebAuthUserSubmit?userName="+user.value+"&userPasswd="+pwd.value, true);
+				              xmlHttpReg.send();
+				              xmlHttpReg.onreadystatechange = doResult; //设置回调函数
+				          }
+				          //回调函数
+				          //设定函数doResult()
+				          function doResult() {
+				                if (xmlHttpReg.readyState == 4) {//4代表执行完成
+				                    if(xmlHttpReg.status == 200) {//200代表执行成功
+					                  	var result = xmlHttpReg.responseText;
+					                    eval(result);
+						                if (status == 1) {
+						                    window.location.href = "/noAuth/auth_success.html"
+							            }else{
+							                showErr(errorstr);
+							            }
+							        }else{
+							        	showErr('错误提示2');
+							        }
+				                  
+				                }
+				          }
+			      	}
+			    }
+			        
+			    //重填
+			    var resetbtn = document.getElementById("reset");
+			    resetbtn.onclick=function(){
+			    	resetbtn.blur();
+			    	login_form.reset();
+			    }
+			}
+			var error_str = document.getElementById("error_str");
+			// 显示错误信息
+			function showErr(errstr){
+				
+				if(errstr !== undefined){
+					error_str.innerHTML=dic[lang][errstr];
+				}
+			}
+			// 清除错误信息
+			function clearErr(){
+				error_str.innerHTML = '';
+			}
+			function isIE(){
+				bgimg.onload=function(){
+					var ww = parseInt(document.body.clientWidth);
+					var wh = parseInt(document.body.clientHeight);   //窗高
+					var iw = bgimg.offsetWidth;    //图宽
+					var ih = bgimg.offsetHeight;
+					var browser=navigator.appName 
+					var b_version=navigator.appVersion 
+					var version=b_version.split(";"); 
+					var trim_Version=version[1].replace(/[ ]/g,""); 
+					if(browser=="Microsoft Internet Explorer" && trim_Version=="MSIE6.0"){ 
+						ieStyle()
+					}else if(browser=="Microsoft Internet Explorer" && trim_Version=="MSIE7.0"){ 
+						ieStyle()
+					}else if(browser=="Microsoft Internet Explorer" && trim_Version=="MSIE8.0"){ 
+						ieStyle()
+					}else if(browser=="Microsoft Internet Explorer" && trim_Version=="MSIE9.0"){ 
+						ieStyle()
+					}
+					function ieStyle(){
+						bgimg.style.left = ((ww - iw) / 2) + "px";
+						bgimg.style.top = ( (wh - ih) / 2) + "px";
+						document.body.style.overflowX = 'hidden';
+						document.body.style.overflowY = 'hidden';
+					}
+				}
+				
+				
+			}
+			isIE()
+
+		</script>
+	</body>
+</html>

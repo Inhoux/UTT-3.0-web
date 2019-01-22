@@ -1,0 +1,195 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <meta http-equiv='content-type' content='text/html;charset=utf-8'>
+    <meta name='robots' content='noindex,nofollow'>
+    <link rel='stylesheet' type='text/css' href='./lib/uttwlan.css'>
+    <link rel="stylesheet" type="text/css" href="./bandwidth.css"> 
+    <title></title>
+  </head>
+  <body onload='init()'  style="margin: 0">
+  <script src="../../libs/js/jquery-2.1.1.min.js"></script>
+  <script src='../../libs/js/chart.js'></script>
+  <script src="./lib/util.js"></script>
+  <script src="./bandwidth.js"></script>
+  <script src='./lib/uttwlan.js'></script>
+  <script src='./lib/bwm-common.js'></script>
+  <script src="./lib/flow.js"></script>
+  <div id="container">
+    <div id="charts">
+      <!-- 包裹折线图 -->
+      <div id="line-chart" style="height:231px">
+        <table width="100%" border="0" cellspacing="0" cellpadding="0" >
+        <tr>
+          <td class="table_bg">
+          <table width="100%" border="0" height="" cellspacing="0" cellpadding="0" align="center"  >
+            <tr valign="top">
+              <td>
+                <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center"><tr>
+              <td align="center"  class="three_td"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td><table border="0" width="80%" align='center'><tr></td>
+        <td style="padding: 0;">
+          <form style="margin-bottom: 0">
+        <table id='container'>
+        <td id='content'>
+        <div id='rstats'>
+        <table width="100%" border="0" style="margin-left: -11px;">
+        <tr>
+            <td align="center">
+        <div style="width: 620px;display: none;"><span id='tab-area'></span></div>
+        <div style='visibility:hidden;padding:0;margin:0' id='graph'>
+          <embed id="svg-chart" src='./lib/bwm-graph.svg' style='width:1000px;height:200px;margin:0;padding:0' type='image/svg+xml' pluginspage='http://www.adobe.com/svg/viewer/install/'>
+          </embed>
+          <!-- <div style="width: 620px;" align="right" data-local="{chartMsg}">
+          {chartMsg}
+          </div> -->
+          </div>
+        </td>
+        </tr>
+        <!-- <tr style="width: 620px;"> 
+              <td align="right" valign="middle">（间隔2秒，总时长10分钟）
+        </td> -->
+        </tr>
+        <tr><td height="1"></td></tr>
+        <tr>
+            <td>
+            <table width="100%" border="0" style="display: none">
+        <tr>
+            <td width="60%" colspan="2" valign="top">
+              <table border=0 cellspacing=2 id='txt' width="100%">
+            <tr>
+              <td width='7%' align='right' valign='top'><b style='border-bottom:blue 1px solid' id='rx-name'>½ÓÊÕ </b></td>
+                <td width='16%' align='right' valign='top'><span id='rx-current'></span></td>
+              <td width='10%' align='right' valign='top'><b>Æ½¾ùÖµ </b></td>
+                <td width='16%' align='right' valign='top' id='rx-avg'></td>
+              <td width='10%' align='right' valign='top'><b>×î´óÖµ </b></td>
+                <td width='16%' align='right' valign='top' id='rx-max'></td>
+              <td width='8%' align='right' valign='top'><b>×ÜºÍ </b></td>
+                <td width='16%' align='right' valign='top' id='rx-total'></td>
+            </tr>
+            <tr>
+              <td height="5"></td>
+            </tr>
+            <tr>
+              <td width='7%' align='right' valign='top'><b style='border-bottom:blue 1px solid' id='tx-name'>·¢ËÍ </b></td>
+                <td width='16%' align='right' valign='top'><span id='tx-current'></span></td>
+              <td width='10%' align='right' valign='top'><b>Æ½¾ùÖµ </b></td>
+                <td width='16%' align='right' valign='top' id='tx-avg'></td>
+              <td width='10%' align='right' valign='top'><b>×î´óÖµ </b></td>
+                <td width='16%' align='right' valign='top' id='tx-max'></td>
+              <td width='8%' align='right' valign='top'><b>×ÜºÍ </b></td>
+                <td width='16%' align='right' valign='top' id='tx-total'></td>
+            </tr>
+            </table>  </td>
+            <td  width="40%" valign="top">  <div id='bwm-controls' style=" margin-top:0px; padding-top:0px">
+              Ê±¼äÖá: &nbsp;
+                <a href='javascript:switchAvg(1)' id='avg1'>1x</a>,
+                <a href='javascript:switchAvg(2)' id='avg2'>2x</a>,
+                <a href='javascript:switchAvg(4)' id='avg4'>4x</a>,
+                <a href='javascript:switchAvg(6)' id='avg6'>6x</a>,
+                <!--<a href='javascript:switchAvg(8)' id='avg8'>8x</a>--><br>
+              Á÷Á¿Öá: &nbsp;
+                <a href='javascript:switchScale(0)' id='scale0'>±ê×¼ </a>,
+                <a href='javascript:switchScale(1)' id='scale1'>×î´ó»¯ </a><br>
+              ÏÔÊ¾:&nbsp;
+                <a href='javascript:switchDraw(0)' id='draw0'>ÊµÐÄ </a>,
+                <a href='javascript:switchDraw(1)' id='draw1'>¿ÕÐÄ </a><br>
+              ÑÕÉ«: &nbsp; <a href='javascript:switchColor()' id='drawcolor'>-</a><br>
+              <a href='javascript:switchColor(1)' id='drawrev'>[·­×ª ]</a>
+
+            
+            </div></td>
+        </tr>
+        </table>  </td>
+        </tr>
+            <tr>
+              <td align="left" valign="middle"> 
+                <!-- <a href="http://download.adobe.com/pub/adobe/magic/svgviewer/win/3.x/3.03/en/SVGView.exe" target="_blank">(如果不能正常显示请安装svgviewer)</a> -->
+              </td>
+              </tr>
+        </table>
+        </div>
+         
+        <!-- / / / -->
+         
+        </td></tr>
+        <tr><td id='footer' colspan=1>
+          <span id='warnwd' style='display:none' data-local="{netErr}">{netErr}</span>
+          <span id='dtime'></span>
+          <img height="10" src='' id='refresh-spinner'  style="display:none" onclick='javascript:debugTime=1'>
+        </td></tr>
+        </table>
+        </form>
+        
+        </td><td class="gapTd"></td></tr>
+          </table>
+         </td>
+          </tr>
+        </table> 
+          </td></tr>
+        </table></td></tr></table></td>
+          </tr>
+        </table>
+      </div>
+      <!-- 包裹折线图 结束 -->
+      <div id="pies">
+        <div id="wan-one"></div>
+        <div id="wan-two"></div>
+        <div id="wan-three"></div>
+        <div id="wan-four"></div>
+        <div id="wan-five"></div>
+      </div>
+    </div>
+    <div id="msg" style="margin-left: 0;">
+      <ul >
+        <li>
+          <label for="port" data-local="{interface}">{interface}</label>
+          <select name="port" id="ports" onChange="changeTab(this.value)">
+            <option value="23" class="tab-toggle">wan1</option>
+          </select>
+        </li>
+        <li type="wan">
+          <label for="status" data-local="{constatus}">{constatus}</label>
+          <span></span>
+        </li>
+        <li type="wan">
+          <label for="time" data-local="{contime}">{contime}</label>
+          <span></span>
+        </li>
+        <li type="wan">
+          <label for="type" data-local="{connType}">{connType}</label>
+          <span></span>
+        </li>
+        <li>
+          <label for="ip" data-local="{ip}">{ip}</label>
+          <span></span>
+        </li>
+        <li>
+          <label for="mask" data-local="{netmask}">{netmask}</label>
+          <span></span>
+        </li>
+        <li>
+          <label for="mac" data-local="{MACAddr}">{MACAddr}</label>
+          <span></span>
+        </li>
+        <li type="wan">
+          <label for="priDNS" data-local="{mainDNSAddr}">{mainDNSAddr}</label>
+          <span></span>
+        </li>
+        <li type="wan">
+          <label for="secDNS" data-local="{secDNSAddr}">{secDNSAddr}</label>
+          <span></span>
+        </li>
+        <li type="lan">
+          <label for="mode" data-local="{interface}{mode}">{interface}{mode}</label>
+          <span></span>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <script>
+    Translate.translate($('#container'))
+  </script>
+  </body>
+</html>

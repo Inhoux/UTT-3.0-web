@@ -1,0 +1,233 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<style>
+*{margin:0;padding:0;}
+body {
+	font:13.34px helvetica,arial,freesans,clean,sans-serif;
+	color:black;
+	line-height:1.4em;
+	background-color: #F8F8F8;
+	padding: 0.7em;
+}
+p {
+	margin:1em 0;
+	line-height:1.5em;
+}
+table {
+	font-size:inherit;
+	font:100%;
+	margin:1em;
+}
+table th{border-bottom:1px solid #bbb;padding:.2em 1em;}
+table td{border-bottom:1px solid #ddd;padding:.2em 1em;}
+input[type=text],input[type=password],input[type=image],textarea{font:99% helvetica,arial,freesans,sans-serif;}
+select,option{padding:0 .25em;}
+optgroup{margin-top:.5em;}
+pre,code{font:12px Monaco,"Courier New","DejaVu Sans Mono","Bitstream Vera Sans Mono",monospace;}
+pre {
+	margin:1em 0;
+	font-size:12px;
+	background-color:#eee;
+	border:1px solid #ddd;
+	padding:5px;
+	line-height:1.5em;
+	color:#444;
+	overflow:auto;
+	-webkit-box-shadow:rgba(0,0,0,0.07) 0 1px 2px inset;
+	-webkit-border-radius:3px;
+	-moz-border-radius:3px;border-radius:3px;
+}
+pre code {
+	padding:0;
+	font-size:12px;
+	background-color:#eee;
+	border:none;
+}
+code {
+	font-size:12px;
+	background-color:#f8f8ff;
+	color:#444;
+	padding:0 .2em;
+	border:1px solid #dedede;
+}
+img{border:0;max-width:100%;}
+abbr{border-bottom:none;}
+a{color:#4183c4;text-decoration:none;}
+a:hover{text-decoration:underline;}
+a code,a:link code,a:visited code{color:#4183c4;}
+h2,h3{margin:1em 0;}
+h1,h2,h3,h4,h5,h6{border:0;}
+h1{font-size:170%;border-top:4px solid #aaa;padding-top:.5em;margin-top:1.5em;}
+h1:first-child{margin-top:0;padding-top:.25em;border-top:none;}
+h2{font-size:150%;margin-top:1.5em;border-top:4px solid #e0e0e0;padding-top:.5em;}
+h3{margin-top:1em;}
+hr{border:1px solid #ddd;}
+ul{margin:1em 0 1em 2em;}
+ol{margin:1em 0 1em 2em;}
+ul li,ol li{margin-top:.5em;margin-bottom:.5em;}
+ul ul,ul ol,ol ol,ol ul{margin-top:0;margin-bottom:0;}
+blockquote{margin:1em 0;border-left:5px solid #ddd;padding-left:.6em;color:#555;}
+dt{font-weight:bold;margin-left:1em;}
+dd{margin-left:2em;margin-bottom:1em;}
+sup {
+    font-size: 0.83em;
+    vertical-align: super;
+    line-height: 0;
+}
+* {
+	-webkit-print-color-adjust: exact;
+}
+@media screen and (min-width: 914px) {
+    body {
+        width: 854px;
+        margin:0 auto;
+    }
+}
+@media print {
+	table, pre {
+		page-break-inside: avoid;
+	}
+	pre {
+		word-wrap: break-word;
+	}
+}
+</style>
+<title>Table表格组件API文档</title>
+
+</head>
+<body>
+<h1>Table表格组件API文档</h1>
+
+<h2>简介</h2>
+
+<p>table模块用于生成表格。该模块封装了一个table类，表格相关的功能均实现为table类的方法。本模块是依赖于Database模块的。表格的数据是和一个数据表绑定在一起的。</p>
+
+<p>引入此模块代码如下：</p>
+
+<pre><code>// 不需要考虑路径问题
+var Table = require('Table');
+</code></pre>
+
+<h2>模块对外接口</h2>
+
+<p>整个模块对外只提供一个接口。</p>
+
+<h3>getTableObj()</h3>
+
+<ul>
+<li>返回一个table类的实例</li>
+</ul>
+
+
+<h2>table类方法</h2>
+
+<h3>getDom(tableList)</h3>
+
+<ul>
+<li>返回表格组件的jQuery对象</li>
+<li>参数， tableList，一个json数据，包含以下键：
+
+<ul>
+<li>head : 表格上方按钮的配置数据, 是一个数组，每个元素是json。每个json对应一个按钮的配置数据.包含以下键
+
+<ul>
+<li>id , 按钮的id</li>
+<li>name, 按钮文字</li>
+</ul>
+</li>
+<li>table : 表格配置数据，是一个json结构，包含以下键
+
+<ul>
+<li>database , 和表格绑定在一起的数据表的引用</li>
+<li>titles , 表格头部需要显示那些文字以及表格每一列对应数据表的哪一个字段的数据。是一个json数据。json的键是表格头部的文字
+
+<ul>
+<li>如果需要直接显示数据表中的数据，那么键对应的值是数据表中字段的名称。</li>
+<li>对于需要显示开启关闭按钮这种控件的特殊需求。键对应的值是json，有以下键
+
+<ul>
+<li>key, 数据表中字段的名称</li>
+<li>type, 需要显示什么类型的控件，例如： checkbox, radio , select</li>
+<li>value， 配置什么样的数据表指定的字段的值是选中状态</li>
+</ul>
+</li>
+<li>表格中一些列需要放一些按钮，键对应的值就是一个json,键为type,不同的值代表不同的按钮，暂时只有do一个值，会生成一个修改和删除的按钮</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+
+<p>示例代码如下：先生成一个数据表</p>
+
+<pre><code>    var Database = require('../../core/Database');
+    var database = Database.getDatabaseObj();
+    var fieldArr = ['mingcheng', 'ip', 'mask', 'vlanid', 'isOpen']
+    database.addTitle(fieldArr);
+    // 添加数据
+    var data = [
+        ['lan3', '11111', '265.255.0.0', '默认', 'on'],
+        ['lan4', '22222', '255.255.0.0', '默认', 'on'],
+        ['研发部1', '192.168.2.100', '255.215.0.0', '1', 'on'],
+        ['研发部2', '192.168.2.1', '255.225.0.0', '2', 'on'],
+        ['研发部3', '192.168.2.90', '265.255.0.0', '3', 'off'],
+        ['研发部4', '192.168.2.18', '255.255.0.0', '4', 'off'],
+    ];
+    database.addData(data);
+
+    // 表格上方按钮配置数据
+    var btnList = [{
+        "id": "add",
+        "name": "新增"
+    }, {
+        "id": "delete",
+        "name": "删除"
+    }, {
+        "id": "setting",
+        "name": "全局设置"
+    }];
+    // 表格配置数据
+    var tableList = {
+        "database": database, //为表格绑定一个数据表
+        "titles": {
+            "名称": "mingcheng",
+            "ip地址": "ip",// 表格中ip地址列显示的是数据表中ip字段的数据
+            "掩码": "mask",
+            // 表格中开启一列需要显示选择框，是根据数据表中isOpen字段的数据来确定选择框是开启还是关闭，
+            // isOpen字段的值是on就会选中，是off就不会被选中
+            "开启": {
+                "key": "isOpen",
+                "type": "checkbox",
+                "value": {
+                    "on": true,
+                    "off": false
+                }
+            },
+            "vlanID": 'vlanid',
+            "操作": {
+                "type": "do"
+            }
+        }
+    };
+    // 表格组件配置数据
+    var list = {
+        head: btnList,
+        table: tableList
+    };
+    // 加载表格组件，获得表格组件对象，获得表格jquery对象
+    var Table = require('../../../plugin/table'),
+        tableObj = Table.getTableObj(list),
+        $table = tableObj.getDom();
+</code></pre>
+
+<p>$table 就是整个表格组件的html,把他放入页面中就可以显示。</p>
+
+<p><img src="./table.png" alt="image" /></p>
+</body>
+</html>

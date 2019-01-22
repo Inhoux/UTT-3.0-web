@@ -1,0 +1,51 @@
+<nav>
+  <ul class="nav nav-tabs">
+    {{each tabs_list as list index}}
+      {{if index == 0}}
+        <li class="active">
+	<a href="#{{list[0]}}" data-toggle="tab" data-local="{{list[1]}}">{{list[1]}}</a>
+        </li>
+      {{else}}
+        <li>
+	<a href="#{{list[0]}}" data-toggle="tab" data-local="{{list[1]}}">{{list[1]}}</a>
+        </li>
+      {{/if}}
+    {{/each}}
+  </ul>
+</nav>
+<div class="tab-content">
+  {{each tabs_list as list index}}
+    {{if index == 0}}
+      <div class="tab-pane fade in active" id="{{list[0]}}"></div>
+    {{else}}
+      <div class="tab-pane fade in" id="{{list[0]}}"></div>
+    {{/if}}
+  {{/each}}
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

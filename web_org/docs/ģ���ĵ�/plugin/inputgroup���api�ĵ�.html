@@ -1,0 +1,297 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<style>
+*{margin:0;padding:0;}
+body {
+	font:13.34px helvetica,arial,freesans,clean,sans-serif;
+	color:black;
+	line-height:1.4em;
+	background-color: #F8F8F8;
+	padding: 0.7em;
+}
+p {
+	margin:1em 0;
+	line-height:1.5em;
+}
+table {
+	font-size:inherit;
+	font:100%;
+	margin:1em;
+}
+table th{border-bottom:1px solid #bbb;padding:.2em 1em;}
+table td{border-bottom:1px solid #ddd;padding:.2em 1em;}
+input[type=text],input[type=password],input[type=image],textarea{font:99% helvetica,arial,freesans,sans-serif;}
+select,option{padding:0 .25em;}
+optgroup{margin-top:.5em;}
+pre,code{font:12px Monaco,"Courier New","DejaVu Sans Mono","Bitstream Vera Sans Mono",monospace;}
+pre {
+	margin:1em 0;
+	font-size:12px;
+	background-color:#eee;
+	border:1px solid #ddd;
+	padding:5px;
+	line-height:1.5em;
+	color:#444;
+	overflow:auto;
+	-webkit-box-shadow:rgba(0,0,0,0.07) 0 1px 2px inset;
+	-webkit-border-radius:3px;
+	-moz-border-radius:3px;border-radius:3px;
+}
+pre code {
+	padding:0;
+	font-size:12px;
+	background-color:#eee;
+	border:none;
+}
+code {
+	font-size:12px;
+	background-color:#f8f8ff;
+	color:#444;
+	padding:0 .2em;
+	border:1px solid #dedede;
+}
+img{border:0;max-width:100%;}
+abbr{border-bottom:none;}
+a{color:#4183c4;text-decoration:none;}
+a:hover{text-decoration:underline;}
+a code,a:link code,a:visited code{color:#4183c4;}
+h2,h3{margin:1em 0;}
+h1,h2,h3,h4,h5,h6{border:0;}
+h1{font-size:170%;border-top:4px solid #aaa;padding-top:.5em;margin-top:1.5em;}
+h1:first-child{margin-top:0;padding-top:.25em;border-top:none;}
+h2{font-size:150%;margin-top:1.5em;border-top:4px solid #e0e0e0;padding-top:.5em;}
+h3{margin-top:1em;}
+hr{border:1px solid #ddd;}
+ul{margin:1em 0 1em 2em;}
+ol{margin:1em 0 1em 2em;}
+ul li,ol li{margin-top:.5em;margin-bottom:.5em;}
+ul ul,ul ol,ol ol,ol ul{margin-top:0;margin-bottom:0;}
+blockquote{margin:1em 0;border-left:5px solid #ddd;padding-left:.6em;color:#555;}
+dt{font-weight:bold;margin-left:1em;}
+dd{margin-left:2em;margin-bottom:1em;}
+sup {
+    font-size: 0.83em;
+    vertical-align: super;
+    line-height: 0;
+}
+* {
+	-webkit-print-color-adjust: exact;
+}
+@media screen and (min-width: 914px) {
+    body {
+        width: 854px;
+        margin:0 auto;
+    }
+}
+@media print {
+	table, pre {
+		page-break-inside: avoid;
+	}
+	pre {
+		word-wrap: break-word;
+	}
+}
+</style>
+<title>InputGroup组件API文档</title>
+
+</head>
+<body>
+<h1>InputGroup组件API文档</h1>
+
+<p>输入框、下拉框、单选按钮、复选框等称为控件。</p>
+
+<p>InputGroup组件用于生成控件组，并且可以为输入框指定检测函数，进行输入验证</p>
+
+<p>引入此模块的代码如下：</p>
+
+<pre><code>// 不需要考虑路径问题
+var InputGroup = require('InputGroup');
+</code></pre>
+
+<h2>接口方法</h2>
+
+<h3>getDom(inputList)</h3>
+
+<ul>
+<li>获得一组输入框</li>
+<li>参数，数组，每一个元素是一个json，对应着一个控件的配置数据。有如下键：
+
+<ul>
+<li>disabled, 控件是否屏蔽点击等操作</li>
+<li>necessary, 控件是否带红色的星号</li>
+<li>prevword, 控件之前的文字</li>
+<li>inputData, 控件具体配置信息</li>
+<li>afterWord,  控件之后显示的文字</li>
+</ul>
+</li>
+<li>返回值, 输入框组的jQuery对象</li>
+</ul>
+
+
+<p>其中inputData是一个控件的具体配置信息，每种控件的inputData都会有一个name，代表input元素的名称；还有一个type,代表控件的类型。type有一下几种:</p>
+
+<ul>
+	
+<li>text    text类型的输入框</li>
+<li>textarea  textarea类型的输入框</li>
+<li>select   下拉框</li>
+<li>checkbox  复选框</li>
+<li>radio    单选框</li>
+<li>title    一个标题</li>
+<li>link    超链接文字</li>
+</ul>
+
+
+<p>下面将分别介绍每一个类型控件的的inputData数据如何书写。</p>
+
+<h3>text类型输入框</h3>
+
+<p>代码示例如下：</p>
+
+<pre><code>{
+	"disabled"  : true,
+	"necessary" : true,
+    "prevWord": '名称',
+    "inputData": {
+        "type": 'text',
+        "name": 'lanIpName',
+        "checkFunc": 'checkHello',
+        "errorStr": '名称错误'
+    },
+    "afterWord": ''
+}
+</code></pre>
+
+<p>这个输入框的类型是text,名称是lanIpName.</p>
+
+<p>checkFunc是指这个输入框的检测函数, 对应的值是一个函数名，具体的函数名以及函数名对应的函数是定义在core目录下CheckFunctions模块中的。如何添加检测函数请参考CheckFunctionsAPI文档。</p>
+
+<p>errorStr是指输入框的内容没有通过检测时显示的的错误信息。</p>
+
+<h3>textarea类型输入框</h3>
+
+<p>如何使用和text类型输入框一致</p>
+
+<h3>下拉框</h3>
+
+<p>示例代码如下</p>
+
+<pre><code>    {
+		"necessary" : true,
+        "prevWord": '业务VLAN',
+        "inputData": {
+            "type": 'select',
+            "name": 'lanVid',
+            defaultValue : 'value1',
+            count: '2',
+            "items" : [
+                {
+                    "value" : 'value1',
+                    "name"  : 'v1'
+                },
+                {
+                    "value" : 'value2',
+                    "name"  : 'v2'
+                },
+            ]
+        },
+        "afterWord": ''
+    }
+</code></pre>
+
+<p>items是下拉框中下拉列表的配置信息，是一个数组，每个元素是一个json，代表下拉列表中每个option的信息。有一下键：</p>
+
+<ul>
+<li>value, option的value</li>
+<li>name , option显示的文字</li>
+<li>isChecked, 是否被选中, true : 表示被选中； false : 表示未被选中</li>
+</ul>
+
+
+<h3>复选框</h3>
+
+<p>示例代码如下：</p>
+
+<pre><code>    {
+		"necessary" : true,
+        "prevWord": '业务VLAN',
+        "inputData": {
+            "type": 'checkbox',
+            "name": 'lanVid',
+            defaultValue : 'value1',
+            "items" : [
+                {"value" : 'v1', "name" : 'v111', checkOn : 'On1',checkOff : 'Off1'},
+                {"value" : 'v2', "name" : 'v22',  checkOn : 'On2',checkOff : 'Off2'}
+            ]
+        },
+        "afterWord": ''
+    }
+</code></pre>
+
+<p>其中items是复选框中每个选择框的配置信息，是一个数组，每个元素是json,代表每一个选择框的信息。具体键代表的意义和下拉框是一致的。</p>
+
+<h3>单选框</h3>
+
+<p>示例代码如下：</p>
+
+<pre><code>    {
+		"necessary" : true,
+        "prevWord": '状态',
+        "inputData": {
+            "type": 'radio',
+            "name": 'DhcpEnable',
+             defaultValue : 'on',
+            "items": [{
+                "value": 'on',
+                "name": '开启',
+                "isChecked": true
+            }, {
+                "value": 'off',
+                "name": '关闭'
+            }, ]
+        },
+        "afterWord": ''
+    }
+</code></pre>
+
+<p>其中items是复选框中每个选择框的配置信息，是一个数组，每个元素是json,代表每一个选择框的信息。具体键代表的意义和下拉框是一致的。</p>
+
+<h3>一个标题</h3>
+
+<p>这个是一个伪控件，用于生成一行标题</p>
+
+<p>示例代码如下：</p>
+
+<pre><code>    {
+        "inputData": {
+            "type": 'title',
+            "name": 'lanVid',
+        }
+    }
+</code></pre>
+
+<p>这个控件是不需要prevWord和afterWord的，其中name指的是标题的文字</p>
+
+<h3>一个超链接</h3>
+
+<p>这个是一个伪控件，用于生成一行超链接</p>
+
+<p>示例代码如下：</p>
+
+<pre><code>    {
+        "inputData": {
+            "type": 'link',
+            "items": [
+            	{id:'a1',name:'高级选项'},
+            	{id:'a2',name:'低级选项'}
+            ]
+        }
+    }
+</code></pre>
+
+<p>这个控件是不需要prevWord和afterWord的，其中name指的是标题的文字</p>
+</body>
+</html>

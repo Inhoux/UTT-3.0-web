@@ -1,0 +1,20 @@
+<tr {{if !display}}class="u-hide"{{/if}} {{if sign!=''}}data-control="{{sign}}"{{/if}}>
+  <td>
+    <label for="" data-local="{{prevWord}}">{{prevWord}}</label>
+    {{if necessary == true}}<span class="u-necessary">*</span>{{/if}}<span></span>
+  </td>
+  <td>
+    <select name="{{name}}" id="" {{if disabled}} disabled="disabled" {{/if}} >
+      {{each inputList as value index}}
+        {{if value[0] == deValue}}
+          <option value="{{value[0]}}" {{if value[4]}}disabled="disabled"{{/if}} {{if value[3]}}class="u-hide"{{/if}} data-local="{{value[1]}}" {{if value[2] != ''}}data-control-src="{{value[2]}}"{{/if}} selected>{{value[1]}}</option>
+        {{else}}
+          <option value="{{value[0]}}" {{if value[4]}}disabled="disabled"{{/if}} {{if value[3]}}class="u-hide"{{/if}} data-local="{{value[1]}}" {{if value[2] != ''}}data-control-src="{{value[2]}}"{{/if}}>{{value[1]}}</option>
+        {{/if}}
+      {{/each}}
+    </select>
+  </td>
+  <td>
+    <span class="u-prompt-word" data-local="{{afterWord}}">{{afterWord}}</span>
+  </td>
+</tr>

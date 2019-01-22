@@ -1,0 +1,14 @@
+<div class="panel-group" id="{{parentId}}">
+	{{each children as list index}}
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<a class="panel-title" data-toggle="collapse" data-parent="#{{parentId}}" 
+				   href="#{{list[1]}}_panel"><span>{{list[0]}}</span><span class="glyphicon glyphicon-chevron-down u-panel-open-close"></span></a>
+		</div>
+		<div id="{{list[1]}}_panel" class="panel-collapse collapse">
+			<div class="panel-body" id="{{list[1]}}">
+			</div>
+		</div>
+	</div>
+	{{/each}}
+</div>

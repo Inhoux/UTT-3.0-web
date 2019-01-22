@@ -1,0 +1,15 @@
+config_filename=配置文件名
+ap_model=AP型号
+updatetime=更新时间
+hardware_version=硬件版本
+config_size=大小
+software_version=软件版本
+backup=备份
+upload_backup=上传备份
+delete_alert1=您尚未勾选任何配置文件
+delete_alert2=确认删除选定的配置文件吗？
+backup_alert1=确认备份所有配置文件吗？
+backup_alert2=备份成功
+import=上传备份配置
+warn_file_choose=请选择配置文件
+choose_file=选择文件

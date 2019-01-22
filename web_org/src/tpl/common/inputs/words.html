@@ -1,0 +1,9 @@
+<tr {{if !display}}class="u-hide"{{/if}} {{if sign!=''}}data-control="{{sign}}"{{/if}}>
+  <td>
+    <label for="" data-local="{{prevWord}}">{{prevWord}}</label>
+    {{if necessary == true}}<span class="u-necessary">*</span>{{/if}}</span><span> </span>
+  </td>
+  <td colspan="3">
+		<span data-local="{{text}}">{{text}}</span>
+  </td>
+</tr>

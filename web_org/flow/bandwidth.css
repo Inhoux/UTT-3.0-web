@@ -1,0 +1,33 @@
+#line-chart {
+	width: 890px;
+}
+#charts,
+#msg {
+	float: left;
+}
+#msg {
+	padding-left: 4%;
+    border-left: 1px dotted #cccccc;
+    font-family: '微软雅黑';
+    font-size: 14px;
+    margin-left: 5%;
+    height: 100%;
+}
+#msg > ul {
+	padding-left: 0;
+}
+#msg li {
+	list-style: none;
+	padding: 8px 0px;
+}
+#msg li label {
+	display: inline-block;
+	width: 100px;
+}
+#pies > div {
+	float: left;
+	margin: 2px 5px;
+}
+#svg-chart {
+	border-bottom: 1px solid #e3e3e3;
+}

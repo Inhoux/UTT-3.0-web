@@ -1,0 +1,190 @@
+body {
+    background-color: rgb(184,186,188);
+}
+.u-container {
+    height: 100%;
+    background-color: rgb(184,186,188);
+}
+#header {
+    height: 60px;
+    border-bottom: 3px solid rgb(0,136,146);
+}
+#main {
+    padding-top: 4px;
+    bottom: 30px;
+}
+#footer {
+    height: 30px;
+    text-align: center;
+    background-color: rgb(229,228,228);
+    position: fixed;
+	bottom: 0px;
+	left: 0px;
+	width: 100%;
+}
+.main-left
+{
+    height: 100%;
+    width: 170px;
+    border: 1px solid #d2d3d6;
+    transition:width 0.1s ease-in-out;
+    -webkit-transition:width 0.1s ease-in-out;
+    -moz-transition:width 0.1s ease-in-out;
+    -o-transition:width 0.1s ease-in-out;
+}
+.main-right
+{
+	position: relative;
+    height: auto;
+    margin-left: 170px;
+    background-color: rgb(255,255,255);
+    border: 1px solid #d2d3d6;
+    transition:margin-left 0.1s ease-in-out;
+    -webkit-transition:margin-left 0.1s ease-in-out;
+    -moz-transition:margin-left 0.1s ease-in-out;
+    -o-transition:margin-left 0.1s ease-in-out;
+    overflow: auto;
+}
+#path
+{
+    padding: 10px 20px;
+}
+#path ol
+{
+    margin-bottom: 0;
+    padding: 0;
+    border-radius: 4px;
+}
+#content
+{
+    height: 100%; 
+    padding: 0 10px;
+}
+.nav-tabs
+{
+    height: 42px;
+}
+
+/*.table-container
+{
+    padding-right: 10px;
+}
+.table-container > header
+{
+    height: 40px;
+    padding: 5px 10px;
+    padding-right: 30px;
+}
+.table-container > header span
+{
+    font-size: 16px;
+}
+.table-container > header .btn
+{
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
+.table-container > header .pull-left .btn
+{
+    margin-top: -3px;
+}*/
+.table-container
+{
+    padding-right: 10px;
+}
+.tab-pane{
+	overflow-x: hidden;
+}
+.tab-pane > header,.tab-pane >div> header
+{
+    height: 37px;
+    padding: 5px 10px;
+}
+.tab-pane > header span
+{
+}
+.tab-pane > header .btn
+{
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
+.tab-pane > header .pull-left .btn
+{
+    margin-top: -3px;
+}
+.tab-pane table th
+{
+    text-align: center;
+}
+.tab-pane nav
+{
+    text-align: center;
+}
+.tab-pane .pagination
+{
+    margin: 0px 0 0px;
+}
+.tab-pane .input-group{
+	margin-left: 2em
+}
+.input-group {
+}
+.input-group li {
+    margin-top: 10px;
+}
+.input-group label {
+    text-align: left;
+}
+.modal-info {
+    text-align: center;
+    color: blue;
+}
+.noscript
+{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 600px;
+    height: 300px;
+    transform: translate(-50%, -50%);
+    background-color: red;
+}
+
+/*10 20 50页数下拉菜单*/
+#content header .dropdown-menu > li > a{
+	padding: 2px 0;
+}
+#content header .dropdown-menu{
+	min-width: 49px;
+	text-align: center;
+}
+/*表格*/
+table th,
+table td{
+	word-break:keep-all;
+	white-space:nowrap;
+}
+/*重写label*/
+label{
+	margin-bottom: 0px;
+	font-weight: normal;
+}
+input[type="radio"],input[type="checkbox"]{
+	cursor: pointer;
+}
+/*隐藏表格超出部分并产生滚轮*/
+.table-overcover{
+	overflow-x:auto;
+	position: relative;
+	width:100%;
+}
+
+/*表格顶部的下拉框位置对齐*/
+header>.dropdown-toggle{
+	position: relative;
+	top:-1px;
+}
+/*时间抓取组件的年份选择样式*/
+#laydate_ys{
+	overflow: auto;
+}

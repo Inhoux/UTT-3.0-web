@@ -1,0 +1,18 @@
+<ul>
+{{each list as value index}}
+<li>
+  <div class="u-dropdown">
+    <h4 class="active">
+      <div class="u-sidebar-ttimg u-sidbar-i{{value[0]}}"></div>
+      <span data-local="{{value[1]}}">{{value[1]}}</span>
+    </h4> 
+    <ul class="u-dropdown-menu active">
+      {{each value[2] as item key}}
+      <li><a href="{{item[0]}}" data-local="{{item[1]}}">{{item[1]}}</a></li>
+      {{/each}}
+    </ul>
+  </div>
+</li>
+{{/each}}
+</ul>
+

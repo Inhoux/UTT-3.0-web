@@ -1,0 +1,43 @@
+<tr {{if !display}}class="u-hide"{{/if}} {{if sign!=''}}data-control="{{sign}}"{{/if}}>
+  <td>
+    <label for="" data-local="{{prevWord}}">{{prevWord}}</label>
+     {{if necessary}}
+      <span class="u-necessary">*</span>
+    {{/if}}
+      <span></span>
+  </td>
+  <td>
+    {{each inputList as value index}}
+      {{if value[5]}}
+        <input type="checkbox" name="{{value[0]}}" value="{{value[1]}}" checkonstr="{{value[3]}}" checkoffstr="{{value[4]}}" 
+          {{if disabled}} 
+            disabled="disabled" 
+          {{/if}} 
+          {{if value[7]}} 
+            disabled="disabled" 
+          {{/if}}
+           {{if value[6]}} 
+            class="u-hide" 
+          {{/if}}
+          
+            checked="checked">
+      {{else}}
+        <input type="checkbox" name="{{value[0]}}" value="{{value[1]}}" checkonstr="{{value[3]}}" checkoffstr="{{value[4]}}" 
+          {{if disabled}} 
+            disabled="disabled" 
+          {{/if}}
+          {{if value[7]}} 
+            disabled="disabled" 
+          {{/if}}
+           {{if value[6]}} 
+            class="u-hide" 
+          {{/if}}
+         >
+      {{/if}}
+      <span data-local="{{value[2]}}"  class="u-afterRC  {{if value[6]}}u-hide{{/if}}">{{value[2]}}</span>
+    {{/each}}
+  </td>
+  <td>
+    <span class="u-prompt-word" data-local="{{afterWord}}">{{afterWord}}</span>
+  </td>
+</tr>
